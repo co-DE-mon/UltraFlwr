@@ -12,12 +12,14 @@ pip install ultralytics
 
 ## Project Layout
 
-```
+```bash
 FedYOLO
 └── client_0_assets
 |   ├── yolo_client_0.py
 |   ├── yolov8n_0.pt
 |   ├── dummy_data_0
+|       ├── data.yaml
+|       └── ...
 |   └── dummy_data_1
 └── client_1_assets
 |   ├── yolo_client_1.py
@@ -25,17 +27,7 @@ FedYOLO
 |   ├── dummy_data_2
 |   └── dummy_data_3
 └── server_assets
-|   ├── yolo_server.py
-|       ├── n01443537
-|       └── ...
-|   └── val
-|       ├── images
-|       └── val_annotations.txt
-└── chaoyang
-    ├── test
-    ├── train
-    ├── test.json
-    └── train.json
+    └── yolo_server.py
 ```
 
 ## Running Scripts
