@@ -10,6 +10,34 @@ python -m pip install flwr
 pip install ultralytics
 ```
 
+## Project Layout
+
+```
+FedYOLO
+└── client_0_assets
+|   ├── yolo_client_0.py
+|   ├── yolov8n_0.pt
+|   ├── dummy_data_0
+|   └── dummy_data_1
+└── client_1_assets
+|   ├── yolo_client_1.py
+|   ├── yolov8n_1.pt
+|   ├── dummy_data_2
+|   └── dummy_data_3
+└── server_assets
+|   ├── yolo_server.py
+|       ├── n01443537
+|       └── ...
+|   └── val
+|       ├── images
+|       └── val_annotations.txt
+└── chaoyang
+    ├── test
+    ├── train
+    ├── test.json
+    └── train.json
+```
+
 ## Running Scripts
 
 Always start the server first:

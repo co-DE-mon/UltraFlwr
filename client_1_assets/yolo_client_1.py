@@ -30,11 +30,11 @@ NUM_CLIENTS = 3
 # https://docs.ultralytics.com/guides/yolo-thread-safe-inference/#why-should-each-thread-have-its-own-yolo-model-instance
 
 def train(net, epochs):
-    net.train(data="./client_1_assets/dummy_data_3/data.yaml", epochs=epochs, workers=0)
+    net.train(data="./client_1_assets/dummy_data_2/data.yaml", epochs=epochs, workers=0)
 
 def test(net):
     """Validate the model on the specified dataset."""
-    results = net.val(data="./client_1_assets/dummy_data_4/data.yaml") # if don't work, use dummy_data_2
+    results = net.val(data="./client_1_assets/dummy_data_3/data.yaml") # if don't work, use dummy_data_2
     val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
     val_precision = results.results_dict.get('metrics/precision(B)')
     loss = val_mAP50
