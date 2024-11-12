@@ -12,7 +12,7 @@ pip install ultralytics
 
 ## Project Layout
 
-```bash
+```
 FedYOLO
 └── client_0_assets
 |   ├── yolo_client_0.py
