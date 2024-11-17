@@ -59,3 +59,9 @@ Please update the `datasets_dir` field in the `.json` file to the full path to t
 "datasets_dir": "/home/<USERNAME>/Documents/GitHub/FedYOLO",
 ```
 
+## The Research Hat
+
+- A open-source implementation of FedYOLO and data partitioner in Flower
+- Minimise the impact of non-IID data (need reading)
+- Cross-domain detection (Simulated -> Phantom)
+- Deployment in OR in real-time
