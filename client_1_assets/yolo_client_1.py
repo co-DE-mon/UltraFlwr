@@ -45,7 +45,7 @@ def test(net):
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.net = YOLO("./client_1_assets/yolov8n_1.pt").to(self.device)
+        self.net = YOLO("./client_1_assets/yolov8n_1.pt")
 
     def get_parameters(self, config):
         return [val.cpu().numpy() for _, val in self.net.model.state_dict().items()]
