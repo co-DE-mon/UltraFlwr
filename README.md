@@ -59,6 +59,8 @@ Please update the `datasets_dir` field in the `.json` file to the full path to t
 "datasets_dir": "/home/<USERNAME>/Documents/GitHub/FedYOLO",
 ```
 
+Also, YOLO automatically loads `yolo11n.pt` to run Automatic Mixed Precision (AMP) checks. This is normal behaviour.
+
 ## The Research Hat
 
 - A open-source implementation of FedYOLO and data partitioner in Flower
