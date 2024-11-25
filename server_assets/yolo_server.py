@@ -1,8 +1,13 @@
 import argparse
 from typing import List, Tuple
+from collections import OrderedDict
+
+import torch
 
 import flwr as fl
-from flwr.common import Metrics
+from flwr.common import Metrics, ndarrays_to_parameters
+
+from ultralytics import YOLO
 
 
 parser = argparse.ArgumentParser(description='YOLO server')
@@ -32,25 +37,31 @@ parser.add_argument(
 )
 
 # Define metric aggregation function
-def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
-    """This function averages teh `accuracy` metric sent by the clients in a `evaluate`
-    stage (i.e. clients received the global model and evaluate it on their local
-    validation sets)."""
-    # Multiply accuracy of each client by number of examples used
-    accuracies = [num_examples * m["accuracy"] for num_examples, m in metrics]
-    examples = [num_examples for num_examples, _ in metrics]
+# def weighted_average(metrics: List[Tuple[int, Metrics]]) -> Metrics:
+#     """This function averages teh `accuracy` metric sent by the clients in a `evaluate`
+#     stage (i.e. clients received the global model and evaluate it on their local
+#     validation sets)."""
+#     # Multiply accuracy of each client by number of examples used
+#     accuracies = [num_examples * m["accuracy"] for num_examples, m in metrics]
+#     examples = [num_examples for num_examples, _ in metrics]
 
-    # Aggregate and return custom metric (weighted average)
-    return {"accuracy": sum(accuracies) / sum(examples)}
+#     # Aggregate and return custom metric (weighted average)
+#     return {"accuracy": sum(accuracies) / sum(examples)}
 
 
 def fit_config(server_round: int):
     """Return a configuration with static batch size and (local) epochs."""
     config = {
-        "epochs": 1,  # Number of local epochs done by clients
+        "epochs": 30,  # Number of local epochs done by clients
     }
     return config
 
+def get_parameters(net):
+    return [val.cpu().numpy() for _, val in net.model.state_dict().items()]
+
+# Initialize model parameters
+ndarrays = get_parameters(YOLO())
+parameters = ndarrays_to_parameters(ndarrays)
 
 def main():
     args = parser.parse_args()
@@ -59,10 +70,11 @@ def main():
     # Define strategy
     strategy = fl.server.strategy.FedAvg(
         fraction_fit=args.sample_fraction,
-        fraction_evaluate=args.sample_fraction,
+        # fraction_evaluate=args.sample_fraction,
         min_fit_clients=args.min_num_clients,
         on_fit_config_fn=fit_config,
-        evaluate_metrics_aggregation_fn=weighted_average,
+        # evaluate_metrics_aggregation_fn=weighted_average,
+        initial_parameters=parameters,
     )
 
     fl.server.start_server(

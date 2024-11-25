@@ -32,25 +32,32 @@ NUM_CLIENTS = 3
 def train(net, epochs):
     net.train(data="./client_0_assets/dummy_data_0/data.yaml", epochs=epochs, workers=0)
 
-def test(net):
-    """Validate the model on the specified dataset."""
-    results = net.val(data="./client_0_assets/dummy_data_1/data.yaml") # if don't work, use dummy_data_2
-    val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
-    val_precision = results.results_dict.get('metrics/precision(B)')
-    loss = val_mAP50
-    accuracy = val_precision
-    net.train()
-    return loss, accuracy
+# def test(net):
+#     """Validate the model on the specified dataset."""
+#     results = net.val(data="./client_0_assets/dummy_data_0/data.yaml") # if don't work, use dummy_data_2
+#     val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
+#     val_precision = results.results_dict.get('metrics/precision(B)')
+#     loss = val_mAP50
+#     accuracy = val_precision
+#     net.train(workers=0, epochs=0)
+#     return loss, accuracy
 
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        self.net = YOLO("./client_0_assets/yolov8n_0.pt")
+        # self.net = YOLO("./client_0_assets/yolov8n_0.pt")
+        self.net = YOLO()
+        self.get_parameters_count = 0
+        self.set_parameters_count = 0
 
     def get_parameters(self, config):
+        self.get_parameters_count += 1
+        print(f"get_parameters called {self.get_parameters_count} times")
         return [val.cpu().numpy() for _, val in self.net.model.state_dict().items()]
 
     def set_parameters(self, parameters, config):
+        self.set_parameters_count += 1
+        print(f"set_parameters called {self.set_parameters_count} times")
         params_dict = zip(self.net.model.state_dict().keys(), parameters)
         state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
         self.net.model.load_state_dict(state_dict, strict=True)
@@ -60,10 +67,10 @@ class FlowerClient(fl.client.NumPyClient):
         train(self.net, config['epochs'])
         return self.get_parameters(config), 10, {} # 10 is replacing the number of samples trained on this client
 
-    def evaluate(self, parameters, config):
-        self.set_parameters(parameters, config)
-        loss, accuracy = test(self.net)
-        return loss, len(parameters), {"accuracy": accuracy}
+    # def evaluate(self, parameters, config):
+    #     self.set_parameters(parameters, config)
+    #     loss, accuracy = test(self.net)
+    #     return loss, len(parameters), {"accuracy": accuracy}
 
 
 def main():
