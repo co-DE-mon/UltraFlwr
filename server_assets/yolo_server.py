@@ -56,6 +56,14 @@ def fit_config(server_round: int):
     }
     return config
 
+def evaluate_config(server_round: int):
+    """Generate evaluation configuration for each round."""
+    # Create the configuration dictionary
+    config = {
+        "current_round": server_round,
+    }
+    return config
+
 def get_parameters(net):
     return [val.cpu().numpy() for _, val in net.model.state_dict().items()]
 
@@ -75,6 +83,7 @@ def main():
         on_fit_config_fn=fit_config,
         # evaluate_metrics_aggregation_fn=weighted_average,
         initial_parameters=parameters,
+        on_evaluate_config_fn=evaluate_config,
     )
 
     fl.server.start_server(

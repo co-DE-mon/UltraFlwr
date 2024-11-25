@@ -22,6 +22,12 @@ parser.add_argument(
     required=True,
     help="Client id. Should be an integer between 0 and NUM_CLIENTS",
 )
+parser.add_argument(
+    "--rounds",
+    type=int,
+    default=2,
+    help="Number of rounds of federated learning (default: 2)",
+)
 
 warnings.filterwarnings("ignore", category=UserWarning)
 NUM_CLIENTS = 3
@@ -32,15 +38,24 @@ NUM_CLIENTS = 3
 def train(net, epochs):
     net.train(data="./client_0_assets/dummy_data_0/data.yaml", epochs=epochs, workers=0)
 
-# def test(net):
-#     """Validate the model on the specified dataset."""
-#     results = net.val(data="./client_0_assets/dummy_data_0/data.yaml") # if don't work, use dummy_data_2
-#     val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
-#     val_precision = results.results_dict.get('metrics/precision(B)')
-#     loss = val_mAP50
-#     accuracy = val_precision
-#     net.train(workers=0, epochs=0)
-#     return loss, accuracy
+def test_and_continue(net):
+    """Validate the model on the specified dataset."""
+    results = net.val(data="./client_0_assets/dummy_data_0/data.yaml") #! this is messing up the training, need to set to trainmode
+    val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
+    val_precision = results.results_dict.get('metrics/precision(B)')
+    loss = val_mAP50
+    accuracy = val_precision
+    net.train(data="./client_0_assets/dummy_data_0/data.yaml", workers=0, epochs=1)
+    return loss, accuracy
+
+def test_final(net):
+    """Validate the model on the specified dataset."""
+    results = net.val(data="./client_0_assets/dummy_data_0/data.yaml") #! this is messing up the training, need to set to trainmode
+    val_mAP50 = results.results_dict.get('metrics/mAP50(B)')
+    val_precision = results.results_dict.get('metrics/precision(B)')
+    loss = val_mAP50
+    accuracy = val_precision
+    return loss, accuracy
 
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self):
@@ -67,10 +82,15 @@ class FlowerClient(fl.client.NumPyClient):
         train(self.net, config['epochs'])
         return self.get_parameters(config), 10, {} # 10 is replacing the number of samples trained on this client
 
-    # def evaluate(self, parameters, config):
-    #     self.set_parameters(parameters, config)
-    #     loss, accuracy = test(self.net)
-    #     return loss, len(parameters), {"accuracy": accuracy}
+    def evaluate(self, parameters, config):
+        self.set_parameters(parameters, config)
+        if config['current_round'] == 3:
+            loss, accuracy = test_final(self.net)
+        else:
+            loss, accuracy = test_and_continue(self.net)
+        # loss = 1.0
+        # accuracy = 1.0
+        return loss, len(parameters), {"accuracy": accuracy}
 
 
 def main():
