@@ -30,7 +30,7 @@ NUM_CLIENTS = 3
 # https://docs.ultralytics.com/guides/yolo-thread-safe-inference/#why-should-each-thread-have-its-own-yolo-model-instance
 
 def train(net, epochs):
-    net.train(data="./client_1_assets/dummy_data_2/data.yaml", epochs=epochs, workers=0)
+    net.train(data="./client_1_assets/dummy_data_2/data.yaml", epochs=epochs, workers=0, seed=2) # Need to set different seed for each client
 
 # def test(net):
 #     """Validate the model on the specified dataset."""

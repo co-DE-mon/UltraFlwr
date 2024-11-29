@@ -36,7 +36,7 @@ NUM_CLIENTS = 3
 # https://docs.ultralytics.com/guides/yolo-thread-safe-inference/#why-should-each-thread-have-its-own-yolo-model-instance
 
 def train(net, epochs):
-    net.train(data="./client_0_assets/dummy_data_0/data.yaml", epochs=epochs, workers=0)
+    net.train(data="./client_0_assets/dummy_data_0/data.yaml", epochs=epochs, workers=0, seed=1) # Flower does not support multi-threading
 
 def test_and_continue(net):
     """Validate the model on the specified dataset."""
