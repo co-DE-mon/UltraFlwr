@@ -22,7 +22,8 @@ def main():
             "total_rounds": SERVER_CONFIG["rounds"],
         }
 
-    strategy = fl.server.strategy.FedAvg(
+    # Baseline strategy: Federated Averaging
+    strategy = fl.server.strategy.FedMedian(
         fraction_fit=SERVER_CONFIG["sample_fraction"],
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
         on_fit_config_fn=fit_config,
