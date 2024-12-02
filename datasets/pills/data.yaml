@@ -1,0 +1,13 @@
+train: /home/localssk23/FedYOLO/datasets/pills/train/images
+val: /home/localssk23/FedYOLO/datasets/pills/valid/images
+test: /home/localssk23/FedYOLO/datasets/pills/test/images
+
+nc: 8
+names: ['Cipro 500', 'Ibuphil 600 mg', 'Ibuphil Cold 400-60', 'Xyzall 5mg', 'blue', 'pink', 'red', 'white']
+
+roboflow:
+  workspace: roboflow-100
+  project: pills-sxdht
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/roboflow-100/pills-sxdht/dataset/2

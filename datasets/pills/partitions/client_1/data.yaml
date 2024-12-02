@@ -1,0 +1,19 @@
+names:
+- Cipro 500
+- Ibuphil 600 mg
+- Ibuphil Cold 400-60
+- Xyzall 5mg
+- blue
+- pink
+- red
+- white
+nc: 8
+roboflow:
+  license: CC BY 4.0
+  project: pills-sxdht
+  url: https://universe.roboflow.com/roboflow-100/pills-sxdht/dataset/2
+  version: 2
+  workspace: roboflow-100
+test: ..//home/localssk23/FedYOLO/datasets/pills/partitions/client_1/test/images
+train: ..//home/localssk23/FedYOLO/datasets/pills/partitions/client_1/train/images
+val: ..//home/localssk23/FedYOLO/datasets/pills/partitions/client_1/valid/images

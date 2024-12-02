@@ -1,8 +1,5 @@
-
-/client_0_assets/dummy_data_0
-/client_0_assets/dummy_data_1
-/client_1_assets/dummy_data_3
 *.pt
+*.jpg
+*.txt
 /runs
-/client_1_assets/dummy_data_2
-/exp10-new
+paper.md
