@@ -56,14 +56,6 @@ def fit_config(server_round: int):
     }
     return config
 
-def evaluate_config(server_round: int):
-    """Generate evaluation configuration for each round."""
-    # Create the configuration dictionary
-    config = {
-        "current_round": server_round,
-    }
-    return config
-
 def get_parameters(net):
     return [val.cpu().numpy() for _, val in net.model.state_dict().items()]
 
@@ -74,6 +66,15 @@ parameters = ndarrays_to_parameters(ndarrays)
 def main():
     args = parser.parse_args()
     print(args)
+
+    def evaluate_config(server_round: int):
+        """Generate evaluation configuration for each round."""
+        # Create the configuration dictionary
+        config = {
+            "current_round": server_round,
+            "total_rounds": args.rounds,
+        }
+        return config
 
     # Define strategy
     strategy = fl.server.strategy.FedAvg(
