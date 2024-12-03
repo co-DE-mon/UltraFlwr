@@ -1,6 +1,6 @@
-train: /home/localssk23/FedYOLO/datasets/pills/train/images
-val: /home/localssk23/FedYOLO/datasets/pills/valid/images
-test: /home/localssk23/FedYOLO/datasets/pills/test/images
+train: ../train/images
+val: ../valid/images
+test: ../test/images
 
 nc: 8
 names: ['Cipro 500', 'Ibuphil 600 mg', 'Ibuphil Cold 400-60', 'Xyzall 5mg', 'blue', 'pink', 'red', 'white']

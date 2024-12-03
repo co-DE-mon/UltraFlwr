@@ -1,16 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# navigate to directory
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+cd $SCRIPTPATH
+cd ..
 
 # Default values for arguments
-SERVER_SCRIPT="server/yolo_server.py"
-CLIENT_SCRIPT="client/yolo_client.py"
+SERVER_SCRIPT="FedYOLO/server/yolo_server.py"
+CLIENT_SCRIPT="FedYOLO/client/yolo_client.py"
 SERVER_ADDRESS="127.0.0.1:8080"  # Changed to localhost for better connectivity
+
+# Check if user provided the data paths as arguments
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <client_1_data_path> <client_2_data_path>"
+    exit 1
+fi
 
 # Configurations for each client
 CLIENT_1_CID=1
-CLIENT_1_DATA_PATH="/home/localssk23/FedYOLO/datasets/pills/partitions/client_0/data.yaml"
+CLIENT_1_DATA_PATH="$1"
 
 CLIENT_2_CID=2
-CLIENT_2_DATA_PATH="/home/localssk23/FedYOLO/datasets/pills/partitions/client_1/data.yaml"
+CLIENT_2_DATA_PATH="$2"
 
 # Function to start the server
 start_server() {
