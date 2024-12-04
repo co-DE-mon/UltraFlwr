@@ -38,10 +38,16 @@ class FlowerClient(fl.client.NumPyClient):
     def get_parameters(self, config):
         return [val.cpu().numpy() for _, val in self.net.model.state_dict().items()]
 
-    def set_parameters(self, parameters, config):
-        params_dict = zip(self.net.model.state_dict().keys(), parameters)
-        state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
-        self.net.model.load_state_dict(state_dict, strict=True)
+    def set_parameters(self, parameters, config, detect_module_weights=True):
+        if detect_module_weights:
+            params_dict = zip(self.net.model.state_dict().keys(), parameters)
+            detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
+            state_dict = OrderedDict(detection_weights)
+        else:
+            params_dict = zip(self.net.model.state_dict().keys(), parameters)
+            state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
+        
+        self.net.model.load_state_dict(state_dict, strict=False)
 
     def fit(self, parameters, config):
         self.set_parameters(parameters, config)
