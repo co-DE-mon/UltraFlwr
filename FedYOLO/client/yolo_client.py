@@ -18,13 +18,14 @@ NUM_CLIENTS = 3
 def train(net, data_path, epochs, cid):
     net.train(data=data_path, epochs=epochs, workers=0, seed=cid)
 
-
 def test(net, current_round, total_rounds, data_path):
     results = net.val(data=data_path)
     loss = results.results_dict.get('metrics/mAP50(B)')
     accuracy = results.results_dict.get('metrics/precision(B)')
     if current_round < total_rounds:
-        net.train(data=data_path, workers=0, epochs=1)
+        # net.train(data=data_path, workers=0, epochs=1)
+        # set model to training mode
+        net.model.train()
     return loss, accuracy
 
 

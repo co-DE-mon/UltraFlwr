@@ -4,7 +4,7 @@ from ultralytics import YOLO
 from FedYOLO.config import SERVER_CONFIG
 
 def fit_config(server_round: int):
-    return {"epochs": 30}
+    return {"epochs": 5}
 
 def get_parameters(net):
     return [val.cpu().numpy() for _, val in net.model.state_dict().items()]
