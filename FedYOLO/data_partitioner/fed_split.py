@@ -1,10 +1,7 @@
 import yaml
 import shutil
 from pathlib import Path
-
-import sys
-sys.path.append('/home/localssk23/FedYOLO/')
-from config import SPLITS_CONFIG
+from FedYOLO.config import SPLITS_CONFIG
 
 def split_dataset(ratios, data_path):
 
@@ -41,9 +38,13 @@ def split_dataset(ratios, data_path):
 
         # Create client yaml
         client_yaml = data.copy()
-        client_yaml['train'] = f'../{client_dir}/train/images'
-        client_yaml['val'] = f'../{client_dir}/valid/images'
-        client_yaml['test'] = f'../{client_dir}/test/images'
+        client_yaml['train'] = './train/images'
+        client_yaml['val'] = './valid/images'
+        client_yaml['test'] = './test/images'
+
+        # client_yaml['train'] = f'../{client_dir}/train/images'
+        # client_yaml['val'] = f'../{client_dir}/valid/images'
+        # client_yaml['test'] = f'../{client_dir}/test/images'
         
         with open(client_dir / 'data.yaml', 'w') as f:
             yaml.dump(client_yaml, f)

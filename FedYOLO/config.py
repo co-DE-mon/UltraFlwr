@@ -1,7 +1,5 @@
-home = '/home/localssk23/FedYOLO'
-
 SPLITS_CONFIG = {
-    'dataset': f'{home}/datasets/pills',
+    'dataset': './datasets/pills',
     'ratio': [0.5, 0.5] # Amount of data per client
 }
 

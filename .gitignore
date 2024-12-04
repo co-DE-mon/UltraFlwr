@@ -3,3 +3,10 @@
 *.txt
 /runs
 paper.md
+/__pycache__
+/dec_3_flower_env
+/FedYOLO.egg-info
+/datasets
+/does_this_work
+/FedYOLO/__pycache__
+

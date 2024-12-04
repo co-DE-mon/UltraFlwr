@@ -1,10 +1,7 @@
 import flwr as fl
 from flwr.common import ndarrays_to_parameters
 from ultralytics import YOLO
-
-import sys
-sys.path.append('/home/localssk23/FedYOLO/')
-from config import SERVER_CONFIG
+from FedYOLO.config import SERVER_CONFIG
 
 def fit_config(server_round: int):
     return {"epochs": 30}
