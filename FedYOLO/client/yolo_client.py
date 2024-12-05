@@ -18,17 +18,6 @@ NUM_CLIENTS = 3
 def train(net, data_path, epochs, cid):
     net.train(data=data_path, epochs=epochs, workers=0, seed=cid)
 
-def test(net, current_round, total_rounds, data_path):
-    results = net.val(data=data_path)
-    loss = results.results_dict.get('metrics/mAP50(B)')
-    accuracy = results.results_dict.get('metrics/precision(B)')
-    if current_round < total_rounds:
-        # net.train(data=data_path, workers=0, epochs=1)
-        # set model to training mode
-        net.model.train()
-    return loss, accuracy
-
-
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self, cid, data_path):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -54,12 +43,6 @@ class FlowerClient(fl.client.NumPyClient):
         self.set_parameters(parameters, config)
         train(self.net, self.data_path, config['epochs'], self.cid)
         return self.get_parameters(config), 10, {}
-
-    def evaluate(self, parameters, config):
-        self.set_parameters(parameters, config)
-        loss, accuracy = test(self.net, config["current_round"], config["total_rounds"], self.data_path)
-        return loss, len(parameters), {"accuracy": accuracy}
-
 
 def main():
     args = parser.parse_args()
