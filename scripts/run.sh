@@ -26,15 +26,15 @@ CLIENT_2_DATA_PATH="$2"
 # PIDs of the processes
 PIDS=()
 
-# Function to handle cleanup
-cleanup() {
-    echo "Cleaning up..."
-    kill 0  # Sends SIGTERM to all processes in the script's process group
-    exit 0
-}
+# # Function to handle cleanup
+# cleanup() {
+#     echo "Cleaning up..."
+#     kill 0  # Sends SIGTERM to all processes in the script's process group
+#     exit 0
+# }
 
-# Trap SIGINT (Ctrl+C) to cleanup processes
-trap cleanup SIGINT SIGTERM
+# # Trap SIGINT (Ctrl+C) to cleanup processes
+# trap cleanup SIGINT SIGTERM
 
 # Function to start the server
 start_server() {
