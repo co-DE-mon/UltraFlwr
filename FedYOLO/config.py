@@ -19,12 +19,12 @@ CLIENT_CONFIG = {
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 2,
+    'rounds': 1,
     'sample_fraction': 1.0,
     'min_num_clients': 2,
 }
 
 YOLO_CONFIG = {
     'batch_size': 8,
-    'epochs': 2,
+    'epochs': 1,
 }
