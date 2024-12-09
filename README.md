@@ -29,6 +29,7 @@ Check `config.py` to see the default configurations
     - Create the splits: python FedYOLO/data_partitioner/fed_split.py (configs) 
 12. For federated training: `./scrips/run.sh`
 13. For testing and getting client-wise global and local scores: `python /FedYOLO/test/test.py`
+    - This automatically prints out tables in ultralytics style.
 
 ## To build Custom Dataset
 Follow the style of roboflow downloads as mentioned in above steps.
@@ -37,8 +38,9 @@ Follow the style of roboflow downloads as mentioned in above steps.
 - [x] Proper Federated Training using off-the-shelf flower strategies.
 - [x] Inference Code for Local and Global datasets using client models.
 - [x] Fast Prototyping through simple bash script launch and logging.
+- [x] Inference Code for Local and Global datasets using server model.
 
 ## To-Dos
-- [ ] Inference Code for Local and Global datasets using server model.
+- [ ] Make better prints for server model inference.
 - [ ] Dynamically adapt entire codebase to any number of clients and not rely on manually changing codebase.
-- [ ] Develop more sophisticated data splits.
+- [ ] Develop scripts more sophisticated/adaptable data splits.
