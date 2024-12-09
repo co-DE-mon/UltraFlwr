@@ -1,3 +1,5 @@
+import torch
+
 from ultralytics import YOLO
 from extract_final_save_from_client import extract_results_path
 
@@ -52,6 +54,10 @@ def get_client_metrics(client_number, dataset_name, home_path):
     
     return combined_table
 
+print('##################')
+print('# CLIENT RESULTS #')
+print('##################')
+print()
 client_0_metrics_table = get_client_metrics(0, DATASET_NAME, HOME)
 client_1_metrics_table = get_client_metrics(1, DATASET_NAME, HOME)
 combined_table = pd.merge(client_0_metrics_table, client_1_metrics_table, on='Class', how='inner')
@@ -62,13 +68,20 @@ print('##############################')
 print('# FINAL CONSOLIDATED METRICS #')
 print('##############################')
 print(combined_table.to_string(index=False))
+print()
+print()
 
 #####################
 # SERVER EVALUATION #
 #####################
+print('##################')
+print('# SERVER RESULTS #')
+print('##################')
+print()
 
-server_model_weights_path = extract_results_path(f"{HOME}/logs/server_log_{DATASET_NAME}.txt")
-server_model = YOLO(f"{HOME}/{server_model_weights_path}/weights/best.pt")
+server_model = YOLO('/home/localssk23/FedDet/yolo11n_nc8.yaml')
+server_model_weights_path = f"/home/localssk23/FedDet/weights/model_round_{NUM_ROUNDS}_WOW.pt"
+server_model.model.load_state_dict(torch.load(server_model_weights_path)['model'].state_dict(), strict=False)
 
 server_model_client0_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml', verbose=False)
 server_model_client1_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_1/data.yaml', verbose=False)
@@ -90,8 +103,3 @@ server_model_global_table = pd.DataFrame({
 })
 
 server_model_combined_table = pd.merge(server_model_client0_table, server_model_client1_table, on='Class', how='inner')
-
-# server_model = YOLO()
-# server_model_weights_path = f"{HOME}/weights/model_weights___round_{NUM_ROUNDS}_{DATASET_NAME}.pth" # Need to automatically take the last round
-# server_model.model.load_state_dict(torch.load(server_model_weights_path), strict=False)
-# metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml')  # Validate the model
