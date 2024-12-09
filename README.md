@@ -39,6 +39,7 @@ Follow the style of roboflow downloads as mentioned in above steps.
 - [x] Inference Code for Local and Global datasets using client models.
 - [x] Fast Prototyping through simple bash script launch and logging.
 - [x] Inference Code for Local and Global datasets using server model.
+- [x] Specialised version of FedAvg for YOLO. FedYOLOAvg where only the detection module is being updated.
 
 ## To-Dos
 - [ ] Make better prints for server model inference.
