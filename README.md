@@ -12,6 +12,7 @@ Inspiration from existing issues:
 4. Request from mmlab support in flower indicates a want from the community to be able to do federated object detection | [Issue](https://github.com/adap/flower/issues/4521)
 5. Unlike mmlab, Ultralytics allow the easy change of heads (during inference) for multiple tasks. Therefore, there is a definite need for this to be integrated within flower as well.
 6. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking)
+7. Another primary objective was to create detection specifc stratigies. Our proposal: FedHeadAvg
 
 ## Step by Step Guide to End-to-End Training/Testing with the Example [Pills Data-set](https://universe.roboflow.com/roboflow-100/pills-sxdht)
 
