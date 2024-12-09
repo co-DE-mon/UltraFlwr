@@ -2,7 +2,7 @@
 
 This repository contains code to run YOLOv11 off-the-shelf within the flower framework.
 
-Developed by [Yang-Li86](https://github.com/Yang-Li86) and [aymuos15](https://aymuos15.github.io/)
+Developed by [Yang-Li86](https://github.com/Yang-Li86) and [aymuos15](https://aymuos15.github.io/) :D
 
 Inspiration from existing issues:
 1. Exact Ask in Ultralytics Library | [Issue](https://github.com/orgs/Ultralytics/discussions/9440)
