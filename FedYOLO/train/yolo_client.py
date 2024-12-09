@@ -12,8 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--cid", type=int, required=True)
 parser.add_argument("--data_path", type=str, default="./client_0_assets/dummy_data_0/data.yaml")
 
-NUM_CLIENTS = 3
-
+NUM_CLIENTS = SERVER_CONFIG['max_num_clients']
 
 def train(net, data_path, cid):
     net.train(data=data_path, epochs=YOLO_CONFIG['epochs'], workers=0, seed=cid, batch=YOLO_CONFIG['batch_size'])
@@ -28,15 +27,9 @@ class FlowerClient(fl.client.NumPyClient):
     def get_parameters(self):
         return [val.cpu().numpy() for _, val in self.net.model.state_dict().items()]
 
-    def set_parameters(self, parameters, detect_module_weights=YOLO_CONFIG['detect_module_weights']): #! Need to make a config for this
-        if detect_module_weights:
-            params_dict = zip(self.net.model.state_dict().keys(), parameters)
-            detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
-            state_dict = OrderedDict(detection_weights)
-        else:
-            params_dict = zip(self.net.model.state_dict().keys(), parameters)
-            state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
-        
+    def set_parameters(self, parameters):
+        params_dict = zip(self.net.model.state_dict().keys(), parameters)
+        state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
         self.net.model.load_state_dict(state_dict, strict=False)
 
     def fit(self, parameters, config):

@@ -46,9 +46,9 @@ Follow the style of roboflow downloads as mentioned in above steps.
 - [x] Fast Prototyping through simple bash script launch and logging.
 - [x] Inference Code for Local and Global data-sets using server model.
 - [x] Specialised version of FedAvg for YOLO. FedYOLOAvg where only the detection module is being updated.
+- [x] Propose new custom strategy in the flwr framework: Our proposal: FedHeadAvg
 
 ## To-Dos
 - [ ] Make better prints for server model inference.
-- [ ] Dynamically adapt entire code base to any number of clients and not rely on manually changing code base.
+- [ ] Dynamically adapt entire code base to any number of clients and not rely on manually changing code base. [This needs discussion. Maybe not recommended in the longer run]
 - [ ] Develop scripts more sophisticated/adaptable data splits.
-- [ ] Make an example of FedYOLOAvg within the custom flower strategy (wontfix for now but in plan)

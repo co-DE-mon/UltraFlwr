@@ -50,7 +50,7 @@ def save_model_checkpoint(server_round: int, model=None) -> None:
         f.write(buffer.getvalue()) #! For now, we do not deal with this. Very difficult to log checkpoint across systems.
 
 
-class SaveModelStrategy(fl.server.strategy.FedAvg):
+class FedHeadAvg(fl.server.strategy.FedAvg):
     """Custom FL strategy to save aggregated YOLO model checkpoints."""
 
     def aggregate_fit(
@@ -70,8 +70,9 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
             print(f"Saving round {server_round} aggregated_parameters...")
             aggregated_ndarrays = parameters_to_ndarrays(aggregated_parameters)
             params_dict = zip(net.state_dict().keys(), aggregated_ndarrays)
-            state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
-            net.load_state_dict(state_dict, strict=True)
+            detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
+            state_dict = OrderedDict(detection_weights)
+            net.load_state_dict(state_dict, strict=False) #! Because only a portion is being changed I think?
             save_model_checkpoint(server_round, model=net.model)
 
         return aggregated_parameters, aggregated_metrics
@@ -79,12 +80,14 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
 def main() -> None:
     """Start the FL server with custom strategy."""
     initial_parameters = ndarrays_to_parameters(get_parameters(YOLO()))
-    strategy = SaveModelStrategy(
+    strategy = FedHeadAvg(
         fraction_fit=SERVER_CONFIG["sample_fraction"],
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
         on_fit_config_fn=fit_config,
         initial_parameters=initial_parameters,
     )
+
+    #! If you want FedAvg, replace FedHeadAvg with fl.server.strategy.FedAvg
 
     fl.server.start_server(
         server_address=SERVER_CONFIG["server_address"],
