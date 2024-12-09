@@ -1,7 +1,7 @@
 import yaml
 
 HOME = "/home/localssk23/FedDet"
-DATASET_NAME = 'pills'
+DATASET_NAME = 'dogs'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 
 #? Directly gettin the number of classes for a datset from the data.yaml file
@@ -11,8 +11,8 @@ def get_nc_from_yaml(yaml_path):
     return data.get('nc', None)
 
 # Read nc from the first client's data.yaml file
-FIRST_CLIENT_YAML = f"{DATASET_PATH}/partitions/client_0/data.yaml"
-NC = get_nc_from_yaml(FIRST_CLIENT_YAML)
+DATA_YAML = f"{DATASET_PATH}/data.yaml"
+NC = get_nc_from_yaml(DATA_YAML)
 
 SPLITS_CONFIG = {
     'dataset_name': DATASET_NAME,
