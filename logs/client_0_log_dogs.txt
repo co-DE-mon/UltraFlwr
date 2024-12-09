@@ -1,0 +1,93 @@
+[93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+	Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+
+		$ flower-supernode --insecure --superlink='<IP>:<PORT>'
+
+	To view all available options, run:
+
+		$ flower-supernode --help
+
+	Using `start_client()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message d4fafe01-e984-4a4c-bb81-896e6e1e88a2
+[93mWARNING [0m:   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+New https://pypi.org/project/ultralytics/8.3.48 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.3.39 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolo11n.pt, data=/home/localssk23/FedDet/datasets/dogs/partitions/client_0/data.yaml, epochs=1, time=None, patience=100, batch=8, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=0, project=None, name=train4, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=True, opset=None, workspace=None, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, bgr=0.0, mosaic=1.0, mixup=0.0, copy_paste=0.0, copy_paste_mode=flip, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=runs/detect/train4
+Overriding model.yaml nc=80 with nc=2
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      6640  ultralytics.nn.modules.block.C3k2            [32, 64, 1, False, 0.25]      
+  3                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+  4                  -1  1     26080  ultralytics.nn.modules.block.C3k2            [64, 128, 1, False, 0.25]     
+  5                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+  6                  -1  1     87040  ultralytics.nn.modules.block.C3k2            [128, 128, 1, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    346112  ultralytics.nn.modules.block.C3k2            [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1    249728  ultralytics.nn.modules.block.C2PSA           [256, 256, 1]                 
+ 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 13                  -1  1    111296  ultralytics.nn.modules.block.C3k2            [384, 128, 1, False]          
+ 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 16                  -1  1     32096  ultralytics.nn.modules.block.C3k2            [256, 64, 1, False]           
+ 17                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 19                  -1  1     86720  ultralytics.nn.modules.block.C3k2            [192, 128, 1, False]          
+ 20                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 22                  -1  1    378880  ultralytics.nn.modules.block.C3k2            [384, 256, 1, True]           
+ 23        [16, 19, 22]  1    431062  ultralytics.nn.modules.head.Detect           [2, [64, 128, 256]]           
+YOLO11n summary: 319 layers, 2,590,230 parameters, 2,590,214 gradients, 6.4 GFLOPs
+
+Transferred 448/499 items from pretrained weights
+Freezing layer 'model.23.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mScanning /home/localssk23/FedDet/datasets/dogs/partitions/client_0/train/labels.cache... 71 images, 9 backgrounds, 0 corrupt: 100%|██████████| 71/71 [00:00<?, ?it/s][34m[1mtrain: [0mScanning /home/localssk23/FedDet/datasets/dogs/partitions/client_0/train/labels.cache... 71 images, 9 backgrounds, 0 corrupt: 100%|██████████| 71/71 [00:00<?, ?it/s]
+[34m[1mval: [0mScanning /home/localssk23/FedDet/datasets/dogs/partitions/client_0/valid/labels.cache... 20 images, 4 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/FedDet/datasets/dogs/partitions/client_0/valid/labels.cache... 20 images, 4 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s]
+Plotting labels to runs/detect/train4/labels.jpg... 
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.001667, momentum=0.9) with parameter groups 81 weight(decay=0.0), 88 weight(decay=0.0005), 87 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 0 dataloader workers
+Logging results to [1mruns/detect/train4[0m
+Starting training for 1 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0%|          | 0/9 [00:00<?, ?it/s]        1/1       1.2G      1.232      4.333      1.407         11        640:   0%|          | 0/9 [00:00<?, ?it/s]        1/1       1.2G      1.232      4.333      1.407         11        640:  11%|█         | 1/9 [00:00<00:04,  1.89it/s]        1/1      1.25G      1.269      3.814      1.362         23        640:  11%|█         | 1/9 [00:00<00:04,  1.89it/s]        1/1      1.25G      1.269      3.814      1.362         23        640:  22%|██▏       | 2/9 [00:00<00:02,  2.52it/s]        1/1      1.25G      1.268      3.693      1.357         19        640:  22%|██▏       | 2/9 [00:01<00:02,  2.52it/s]        1/1      1.25G      1.268      3.693      1.357         19        640:  33%|███▎      | 3/9 [00:01<00:02,  2.84it/s]        1/1      1.25G      1.296       3.63      1.409         15        640:  33%|███▎      | 3/9 [00:01<00:02,  2.84it/s]        1/1      1.25G      1.296       3.63      1.409         15        640:  44%|████▍     | 4/9 [00:01<00:01,  3.08it/s]        1/1      1.25G      1.291      3.598      1.415         17        640:  44%|████▍     | 4/9 [00:01<00:01,  3.08it/s]        1/1      1.25G      1.291      3.598      1.415         17        640:  56%|█████▌    | 5/9 [00:01<00:01,  3.28it/s]        1/1      1.25G      1.259      3.624      1.443         11        640:  56%|█████▌    | 5/9 [00:01<00:01,  3.28it/s]        1/1      1.25G      1.259      3.624      1.443         11        640:  67%|██████▋   | 6/9 [00:01<00:00,  3.40it/s]        1/1      1.25G      1.248      3.584      1.431         18        640:  67%|██████▋   | 6/9 [00:02<00:00,  3.40it/s]        1/1      1.25G      1.248      3.584      1.431         18        640:  78%|███████▊  | 7/9 [00:02<00:00,  3.31it/s]        1/1      1.27G      1.232      3.612      1.428         12        640:  78%|███████▊  | 7/9 [00:02<00:00,  3.31it/s]        1/1      1.27G      1.232      3.612      1.428         12        640:  89%|████████▉ | 8/9 [00:02<00:00,  3.38it/s]        1/1      1.27G      1.203      3.562      1.407         17        640:  89%|████████▉ | 8/9 [00:02<00:00,  3.38it/s]        1/1      1.27G      1.203      3.562      1.407         17        640: 100%|██████████| 9/9 [00:02<00:00,  3.58it/s]        1/1      1.27G      1.203      3.562      1.407         17        640: 100%|██████████| 9/9 [00:02<00:00,  3.21it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:00<00:00,  3.07it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:00<00:00,  3.96it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:00<00:00,  3.79it/s]
+/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/utils/metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         20         20    0.00334          1      0.177      0.123
+
+1 epochs completed in 0.001 hours.
+Optimizer stripped from runs/detect/train4/weights/last.pt, 5.5MB
+Optimizer stripped from runs/detect/train4/weights/best.pt, 5.5MB
+
+Validating runs/detect/train4/weights/best.pt...
+Ultralytics 8.3.39 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,542 parameters, 0 gradients, 6.3 GFLOPs
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:00<00:00,  5.98it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:00<00:00,  8.39it/s]
+/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/utils/metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         20         20    0.00334          1      0.179      0.119
+                   dog          9          9     0.0034          1      0.187      0.158
+                person          8         11    0.00328          1      0.171     0.0787
+Speed: 0.8ms preprocess, 4.1ms inference, 0.0ms loss, 1.7ms postprocess per image
+Results saved to [1mruns/detect/train4[0m
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message 1f333506-87ba-4cf4-98c7-c1f3d291cdb5
+[93mWARNING [0m:   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: reconnect message 2375ec15-b8fb-4b4f-898f-3a7d0dc0a729
+[92mINFO [0m:      Disconnect and shut down
