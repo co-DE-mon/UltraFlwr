@@ -83,9 +83,9 @@ server_model = YOLO('/home/localssk23/FedDet/yolo11n_nc8.yaml')
 server_model_weights_path = f"/home/localssk23/FedDet/weights/model_round_{NUM_ROUNDS}_WOW.pt"
 server_model.model.load_state_dict(torch.load(server_model_weights_path)['model'].state_dict(), strict=False)
 
-server_model_client0_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml', verbose=False)
-server_model_client1_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_1/data.yaml', verbose=False)
-server_model_global_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/data.yaml', verbose=False)
+server_model_client0_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml', verbose=True)
+server_model_client1_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_1/data.yaml', verbose=True)
+server_model_global_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/data.yaml', verbose=True)
 
 server_model_client0_table = pd.DataFrame({
     'Class': list(server_model_client0_metrics.names.values()),
