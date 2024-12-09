@@ -1,11 +1,11 @@
 *.pt
-*.jpg
-*.txt
 /runs
 paper.md
 /__pycache__
 /dec_3_flower_env
 /FedYOLO.egg-info
-/datasets
+/datasets/pills
+/datasets/dogs
 /does_this_work
 /FedYOLO/__pycache__
+/ultraflwr

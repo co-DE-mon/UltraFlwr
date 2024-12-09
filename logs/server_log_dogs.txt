@@ -27,7 +27,7 @@
 [92mINFO [0m:      aggregate_evaluate: received 0 results and 2 failures
 [92mINFO [0m:      
 [92mINFO [0m:      [SUMMARY]
-[92mINFO [0m:      Run finished 1 round(s) in 18.04s
+[92mINFO [0m:      Run finished 1 round(s) in 17.36s
 [92mINFO [0m:      
-YAML configuration file '/home/localssk23/FedDet/yolo11n_dogs.yaml' has been created.
+YAML configuration file '/home/yang/Documents/GitHub/FedDet/yolo11n_dogs.yaml' has been created.
 Saving round 1 aggregated_parameters...

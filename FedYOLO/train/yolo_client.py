@@ -28,7 +28,7 @@ class FlowerClient(fl.client.NumPyClient):
     def get_parameters(self):
         return [val.cpu().numpy() for _, val in self.net.model.state_dict().items()]
 
-    def set_parameters(self, parameters, detect_module_weights=False): #! Need to make a config for this
+    def set_parameters(self, parameters, detect_module_weights=YOLO_CONFIG['detect_module_weights']): #! Need to make a config for this
         if detect_module_weights:
             params_dict = zip(self.net.model.state_dict().keys(), parameters)
             detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}

@@ -1,7 +1,7 @@
 import yaml
 
-HOME = "/home/localssk23/FedDet"
-DATASET_NAME = 'dogs'
+HOME = "/home/yang/Documents/GitHub/FedDet"
+DATASET_NAME = 'baseline'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 
 #? Directly gettin the number of classes for a datset from the data.yaml file
@@ -42,4 +42,5 @@ SERVER_CONFIG = {
 YOLO_CONFIG = {
     'batch_size': 8,
     'epochs': 1,
+    'detect_module_weights': True #! This needs to be integrated into flower potentially?? Or maybe actually a custom strategy where the weights things is don eon the server code. #wontfix for now
 }

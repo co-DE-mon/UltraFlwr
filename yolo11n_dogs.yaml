@@ -3,16 +3,6 @@
 
 # Parameters
 nc: 2 # number of classes
-# class names
-names:
- 0: Cipro 500
- 1: Ibuphil 600 mg 
- 2: Ibuphil Cold 400-60 
- 3: Xyzall 5mg
- 4: blue 
- 5: pink
- 6: red 
- 7: white
 
 # Dataset
 dataset: dogs

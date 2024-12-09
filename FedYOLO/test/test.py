@@ -79,8 +79,8 @@ print('# SERVER RESULTS #')
 print('##################')
 print()
 
-server_model = YOLO('/home/localssk23/FedDet/yolo11n_nc8.yaml')
-server_model_weights_path = f"/home/localssk23/FedDet/weights/model_round_{NUM_ROUNDS}_WOW.pt"
+server_model = YOLO(f"{HOME}/yolo11n_{DATASET_NAME}.yaml")
+server_model_weights_path = f"{HOME}/weights/model_round_{NUM_ROUNDS}_{DATASET_NAME}.pt"
 server_model.model.load_state_dict(torch.load(server_model_weights_path)['model'].state_dict(), strict=False)
 
 server_model_client0_metrics = server_model.val(data=f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml', verbose=True)

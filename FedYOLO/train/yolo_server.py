@@ -60,7 +60,7 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
         failures: list[Union[tuple[ClientProxy, FitRes], BaseException]],
     ) -> tuple[Optional[Parameters], dict[str, Scalar]]:
         """Aggregate model weights using weighted average and store checkpoint."""
-        net = YOLO(f'{HOME}/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml')
+        net = YOLO(f"{HOME}/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml")
 
         aggregated_parameters, aggregated_metrics = super().aggregate_fit(
             server_round, results, failures
@@ -99,16 +99,6 @@ def write_yolo_config(dataset_name, num_classes=None):
 
 # Parameters
 nc: {str(num_classes)} # number of classes
-# class names
-names:
- 0: Cipro 500
- 1: Ibuphil 600 mg 
- 2: Ibuphil Cold 400-60 
- 3: Xyzall 5mg
- 4: blue 
- 5: pink
- 6: red 
- 7: white
 
 # Dataset
 dataset: {dataset_name}
