@@ -47,7 +47,7 @@ def save_model_checkpoint(server_round: int, model=None) -> None:
     )
     ckpt_path = f"{HOME}/weights/model_round_{server_round}_{SPLITS_CONFIG['dataset_name']}.pt"
     with open(ckpt_path, "wb") as f:
-        f.write(buffer.getvalue())
+        f.write(buffer.getvalue()) #! For now, we do not deal with this. Very difficult to log checkpoint across systems.
 
 
 class SaveModelStrategy(fl.server.strategy.FedAvg):

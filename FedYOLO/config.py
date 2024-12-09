@@ -1,6 +1,6 @@
 import yaml
 
-BASE = "" # YOUR PATH HERE
+BASE = "/home/localssk23" # YOUR PATH HERE
 HOME = f"{BASE}/UltraFlwr"
 DATASET_NAME = 'baseline'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
@@ -35,13 +35,15 @@ CLIENT_CONFIG = {
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 1,
+    'rounds': 10,
     'sample_fraction': 1.0,
     'min_num_clients': 2,
 }
 
 YOLO_CONFIG = {
-    'batch_size': 8,
-    'epochs': 1,
+    'batch_size': 10,
+    'epochs': 10,
     'detect_module_weights': True #! This needs to be integrated into flower potentially?? Or maybe actually a custom strategy where the weights things is don eon the server code. #wontfix for now
 }
+
+#? I do not think we should dynamically adapt for clients??
