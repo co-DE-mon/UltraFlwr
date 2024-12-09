@@ -76,7 +76,6 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
 
         return aggregated_parameters, aggregated_metrics
 
-
 def main() -> None:
     """Start the FL server with custom strategy."""
     initial_parameters = ndarrays_to_parameters(get_parameters(YOLO()))

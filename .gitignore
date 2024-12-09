@@ -9,3 +9,5 @@ paper.md
 /does_this_work
 /FedYOLO/__pycache__
 /ultraflwr
+/logs
+/weights

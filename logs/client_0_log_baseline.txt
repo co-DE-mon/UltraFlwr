@@ -1,92 +1,0 @@
-[93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
-	Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
-
-		$ flower-supernode --insecure --superlink='<IP>:<PORT>'
-
-	To view all available options, run:
-
-		$ flower-supernode --help
-
-	Using `start_client()` is deprecated.
-
-            This is a deprecated feature. It will be removed
-            entirely in future versions of Flower.
-        
-[92mINFO [0m:      
-[92mINFO [0m:      Received: train message 65c99ac1-be13-4c25-9508-51b3d48df677
-[93mWARNING [0m:   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
-Ultralytics 8.3.48 🚀 Python-3.10.12 torch-2.5.1+cu124 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 7940MiB)
-[34m[1mengine/trainer: [0mtask=detect, mode=train, model=yolo11n.pt, data=/home/yang/Documents/GitHub/FedDet/datasets/baseline/partitions/client_0/data.yaml, epochs=1, time=None, patience=100, batch=8, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=0, project=None, name=train83, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=True, opset=None, workspace=None, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, bgr=0.0, mosaic=1.0, mixup=0.0, copy_paste=0.0, copy_paste_mode=flip, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=/home/yang/Documents/GitHub/FedYOLO/runs/detect/train83
-Overriding model.yaml nc=80 with nc=2
-
-                   from  n    params  module                                       arguments                     
-  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
-  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
-  2                  -1  1      6640  ultralytics.nn.modules.block.C3k2            [32, 64, 1, False, 0.25]      
-  3                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
-  4                  -1  1     26080  ultralytics.nn.modules.block.C3k2            [64, 128, 1, False, 0.25]     
-  5                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
-  6                  -1  1     87040  ultralytics.nn.modules.block.C3k2            [128, 128, 1, True]           
-  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
-  8                  -1  1    346112  ultralytics.nn.modules.block.C3k2            [256, 256, 1, True]           
-  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
- 10                  -1  1    249728  ultralytics.nn.modules.block.C2PSA           [256, 256, 1]                 
- 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
- 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
- 13                  -1  1    111296  ultralytics.nn.modules.block.C3k2            [384, 128, 1, False]          
- 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
- 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
- 16                  -1  1     32096  ultralytics.nn.modules.block.C3k2            [256, 64, 1, False]           
- 17                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
- 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
- 19                  -1  1     86720  ultralytics.nn.modules.block.C3k2            [192, 128, 1, False]          
- 20                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
- 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
- 22                  -1  1    378880  ultralytics.nn.modules.block.C3k2            [384, 256, 1, True]           
- 23        [16, 19, 22]  1    431062  ultralytics.nn.modules.head.Detect           [2, [64, 128, 256]]           
-YOLO11n summary: 319 layers, 2,590,230 parameters, 2,590,214 gradients, 6.4 GFLOPs
-
-Transferred 448/499 items from pretrained weights
-Freezing layer 'model.23.dfl.conv.weight'
-[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
-[34m[1mAMP: [0mchecks passed ✅
-[34m[1mtrain: [0mScanning /home/yang/Documents/GitHub/FedDet/datasets/baseline/partitions/client_0/train/labels.cache... 19 images, 26 backgrounds, 0 corrupt: 100%|██████████| 45/45 [00:00<?, ?it/s][34m[1mtrain: [0mScanning /home/yang/Documents/GitHub/FedDet/datasets/baseline/partitions/client_0/train/labels.cache... 19 images, 26 backgrounds, 0 corrupt: 100%|██████████| 45/45 [00:00<?, ?it/s]
-[34m[1mval: [0mScanning /home/yang/Documents/GitHub/FedDet/datasets/baseline/partitions/client_0/valid/labels.cache... 6 images, 6 backgrounds, 0 corrupt: 100%|██████████| 12/12 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/yang/Documents/GitHub/FedDet/datasets/baseline/partitions/client_0/valid/labels.cache... 6 images, 6 backgrounds, 0 corrupt: 100%|██████████| 12/12 [00:00<?, ?it/s]
-Plotting labels to /home/yang/Documents/GitHub/FedYOLO/runs/detect/train83/labels.jpg... 
-[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
-[34m[1moptimizer:[0m AdamW(lr=0.001667, momentum=0.9) with parameter groups 81 weight(decay=0.0), 88 weight(decay=0.0005), 87 bias(decay=0.0)
-Image sizes 640 train, 640 val
-Using 0 dataloader workers
-Logging results to [1m/home/yang/Documents/GitHub/FedYOLO/runs/detect/train83[0m
-Starting training for 1 epochs...
-
-      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
-  0%|          | 0/6 [00:00<?, ?it/s]        1/1       1.2G      1.751      5.227      1.572          8        640:   0%|          | 0/6 [00:00<?, ?it/s]        1/1       1.2G      1.751      5.227      1.572          8        640:  17%|█▋        | 1/6 [00:00<00:02,  2.47it/s]        1/1      1.21G      1.652      5.776      1.439          5        640:  17%|█▋        | 1/6 [00:00<00:02,  2.47it/s]        1/1      1.21G      1.652      5.776      1.439          5        640:  33%|███▎      | 2/6 [00:00<00:01,  3.90it/s]        1/1      1.21G      1.686      5.528      1.426         11        640:  33%|███▎      | 2/6 [00:00<00:01,  3.90it/s]        1/1      1.21G      1.686      5.528      1.426         11        640:  50%|█████     | 3/6 [00:00<00:00,  4.95it/s]        1/1      1.21G      1.556      5.447      1.378          6        640:  50%|█████     | 3/6 [00:00<00:00,  4.95it/s]        1/1      1.21G      1.556      5.447      1.378          6        640:  67%|██████▋   | 4/6 [00:00<00:00,  5.77it/s]        1/1      1.21G      1.543      5.228      1.439         12        640:  67%|██████▋   | 4/6 [00:00<00:00,  5.77it/s]        1/1      1.21G      1.543      5.228      1.439         12        640:  83%|████████▎ | 5/6 [00:00<00:00,  6.77it/s]        1/1      1.26G      1.615      5.146      1.544          6        640:  83%|████████▎ | 5/6 [00:01<00:00,  6.77it/s]        1/1      1.26G      1.615      5.146      1.544          6        640: 100%|██████████| 6/6 [00:01<00:00,  6.84it/s]        1/1      1.26G      1.615      5.146      1.544          6        640: 100%|██████████| 6/6 [00:01<00:00,  5.61it/s]
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 1/1 [00:00<00:00,  6.90it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 1/1 [00:00<00:00,  6.88it/s]
-/home/yang/Documents/GitHub/FedDet/ultraflwr/lib/python3.10/site-packages/ultralytics/utils/metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
-  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
-                   all         12         12    0.00148       0.25    0.00458    0.00216
-
-1 epochs completed in 0.001 hours.
-Optimizer stripped from /home/yang/Documents/GitHub/FedYOLO/runs/detect/train83/weights/last.pt, 5.5MB
-Optimizer stripped from /home/yang/Documents/GitHub/FedYOLO/runs/detect/train83/weights/best.pt, 5.5MB
-
-Validating /home/yang/Documents/GitHub/FedYOLO/runs/detect/train83/weights/best.pt...
-Ultralytics 8.3.48 🚀 Python-3.10.12 torch-2.5.1+cu124 CUDA:0 (NVIDIA GeForce RTX 4060 Laptop GPU, 7940MiB)
-YOLO11n summary (fused): 238 layers, 2,582,542 parameters, 0 gradients, 6.3 GFLOPs
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 1/1 [00:00<00:00, 16.26it/s]
-/home/yang/Documents/GitHub/FedDet/ultraflwr/lib/python3.10/site-packages/ultralytics/utils/metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
-  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
-                   all         12         12    0.00158        0.3     0.0995     0.0494
-               cheetah          6         10    0.00316        0.6      0.199     0.0989
-                 human          1          2          0          0          0          0
-Speed: 0.2ms preprocess, 1.4ms inference, 0.0ms loss, 1.1ms postprocess per image
-Results saved to [1m/home/yang/Documents/GitHub/FedYOLO/runs/detect/train83[0m
-[92mINFO [0m:      Sent reply
-[92mINFO [0m:      
-[92mINFO [0m:      Received: evaluate message d6f39b16-db28-4267-9237-46c7d9626173
-[93mWARNING [0m:   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
-[92mINFO [0m:      Sent reply
-[92mINFO [0m:      
-[92mINFO [0m:      Received: reconnect message 0065f3cc-6d9e-427d-b58e-f8c6b96e50f4
-[92mINFO [0m:      Disconnect and shut down
