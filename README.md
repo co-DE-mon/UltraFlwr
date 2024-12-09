@@ -2,6 +2,8 @@
 
 This repository contains code to run YOLOv11 off-the-shelf within the flower framework.
 
+Developed by @Yang-Li86 and @aymuos15
+
 Inspiration from existing issues:
 1. Exact Ask in Ultralytics Library | [Issue](https://github.com/orgs/Ultralytics/discussions/9440)
 2. Problem of loading the YOLO state | dict [Issue](https://github.com/Ultralytics/Ultralytics/issues/8804) 
