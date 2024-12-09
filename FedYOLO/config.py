@@ -1,7 +1,7 @@
 import yaml
 
 BASE = "" # YOUR PATH HERE
-HOME = f"{BASE}/FedDet"
+HOME = f"{BASE}/UltraFlwr"
 DATASET_NAME = 'baseline'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 
