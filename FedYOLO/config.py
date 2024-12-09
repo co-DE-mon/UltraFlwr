@@ -1,6 +1,7 @@
 import yaml
 
-HOME = "/home/yang/Documents/GitHub/FedDet"
+BASE = "" # YOUR PATH HERE
+HOME = f"{BASE}/FedDet"
 DATASET_NAME = 'baseline'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 
