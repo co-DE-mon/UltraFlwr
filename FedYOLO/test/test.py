@@ -12,73 +12,73 @@ NUM_ROUNDS = SERVER_CONFIG['rounds']
 
 #! HUGE DIFFERENCES BETWEEN SYSTEMS REGARDING FILES PATHS AND LOGGING. NEED TO IN-DEPTH TEST THIS.
 
-# print('##################')
-# print('# CLIENT RESULTS #')
-# print('##################')
-# print()
+print('##################')
+print('# CLIENT RESULTS #')
+print('##################')
+print()
 
-# def get_client_metrics(client_number, dataset_name):
-#     # Extract paths
-#     client_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
-#     weights = f"{HOME}/{client_model_weights_path}/weights/best.pt"
+def get_client_metrics(client_number, dataset_name):
+    # Extract paths
+    client_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
+    weights = f"{HOME}/{client_model_weights_path}/weights/best.pt"
     
-#     # Load and validate local model
-#     client_model = YOLO(weights)
-#     client_metrics = client_model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', verbose=False)
+    # Load and validate local model
+    client_model = YOLO(weights)
+    client_metrics = client_model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', verbose=False)
     
-#     # Create local model metrics table
-#     client_table = pd.DataFrame({
-#         'Class': list(client_metrics.names.values()),
-#         'mAP@0.5:0.95': client_metrics.box.maps.tolist()
-#     })
+    # Create local model metrics table
+    client_table = pd.DataFrame({
+        'Class': list(client_metrics.names.values()),
+        'mAP@0.5:0.95': client_metrics.box.maps.tolist()
+    })
 
-#     torch.cuda.empty_cache()
+    torch.cuda.empty_cache()
     
-#     # Extract global model weights
-#     client_global_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
-#     global_weights = f"{HOME}/{client_global_model_weights_path}/weights/best.pt"
+    # Extract global model weights
+    client_global_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
+    global_weights = f"{HOME}/{client_global_model_weights_path}/weights/best.pt"
     
-#     # Load and validate global model
-#     client_global_model = YOLO(global_weights)
-#     client_global_metrics = client_global_model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', verbose=False)
+    # Load and validate global model
+    client_global_model = YOLO(global_weights)
+    client_global_metrics = client_global_model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', verbose=False)
     
-#     # Create global model metrics table
-#     client_global_table = pd.DataFrame({
-#         'Class': list(client_global_metrics.names.values()),
-#         'mAP@0.5:0.95': client_global_metrics.box.maps.tolist()
-#     })
+    # Create global model metrics table
+    client_global_table = pd.DataFrame({
+        'Class': list(client_global_metrics.names.values()),
+        'mAP@0.5:0.95': client_global_metrics.box.maps.tolist()
+    })
 
-#     torch.cuda.empty_cache()
+    torch.cuda.empty_cache()
     
-#     # Combine local and global model metrics
-#     combined_table = pd.merge(client_table, client_global_table, on='Class', how='inner')
-#     combined_table.columns = ['Class', 'mAP@0.5:0.95_local', 'mAP@0.5:0.95_global']
+    # Combine local and global model metrics
+    combined_table = pd.merge(client_table, client_global_table, on='Class', how='inner')
+    combined_table.columns = ['Class', 'mAP@0.5:0.95_local', 'mAP@0.5:0.95_global']
 
-#     del client_model
-#     del client_global_model
+    del client_model
+    del client_global_model
     
-#     return combined_table
+    return combined_table
 
 
-# client_0_metrics_table = get_client_metrics(0, DATASET_NAME)
-# client_1_metrics_table = get_client_metrics(1, DATASET_NAME)
-# combined_table = pd.merge(client_0_metrics_table, client_1_metrics_table, on='Class', how='inner')
-# combined_table.columns = ['Class', 'mAP@0.5:0.95_local_0', 'mAP@0.5:0.95_global_0', 'mAP@0.5:0.95_local_1', 'mAP@0.5:0.95_global_1']
+client_0_metrics_table = get_client_metrics(0, DATASET_NAME)
+client_1_metrics_table = get_client_metrics(1, DATASET_NAME)
+combined_table = pd.merge(client_0_metrics_table, client_1_metrics_table, on='Class', how='inner')
+combined_table.columns = ['Class', 'mAP@0.5:0.95_local_0', 'mAP@0.5:0.95_global_0', 'mAP@0.5:0.95_local_1', 'mAP@0.5:0.95_global_1']
 
-# print()
-# print()
-# print('#####################################')
-# print('# FINAL CONSOLIDATED CLIENT METRICS #')
-# print('#####################################')
-# print(combined_table.to_string(index=False))
-# print()
-# print()
+print()
+print()
+print('#####################################')
+print('# FINAL CONSOLIDATED CLIENT METRICS #')
+print('#####################################')
+print(combined_table.to_string(index=False))
+print()
+print()
 
-# # clear variables and free memory
-# del client_0_metrics_table
-# del client_1_metrics_table
-# del combined_table
-# torch.cuda.empty_cache()
+# clear variables and free memory
+del client_0_metrics_table
+del client_1_metrics_table
+del combined_table
+torch.cuda.empty_cache()
 
 print('##################')
 print('# SERVER RESULTS #')
