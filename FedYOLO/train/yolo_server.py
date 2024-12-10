@@ -26,28 +26,24 @@ def get_parameters(net: YOLO) -> list[np.ndarray]:
 
 def save_model_checkpoint(server_round: int, model=None) -> None:
     """Save model training checkpoints with additional metadata."""
-    buffer = io.BytesIO()
-    torch.save(
-        {
-            "epoch": 0,
-            "best_fitness": 0,
-            "model": model,
-            "ema": 0,
-            "updates": 0,
-            "optimizer": 0,
-            "train_args": 0,
-            "train_metrics": 0,
-            "train_results": 0,
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "version": __version__,
-            "license": "AGPL-3.0 (https://ultralytics.com/license)",
-            "docs": "https://docs.ultralytics.com",
-        },
-        buffer,
-    )
+    checkpoint = {
+        "epoch": 0,
+        "best_fitness": 0,
+        "model": model,  # Save the entire model, not just state_dict
+        "ema": None,
+        "updates": 0,
+        "optimizer": None,
+        "train_args": {},
+        "train_metrics": {},
+        "train_results": {},
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "version": __version__,
+        "license": "AGPL-3.0 (https://ultralytics.com/license)",
+        "docs": "https://docs.ultralytics.com",
+    }
+    
     ckpt_path = f"{HOME}/weights/model_round_{server_round}_{SPLITS_CONFIG['dataset_name']}.pt"
-    with open(ckpt_path, "wb") as f:
-        f.write(buffer.getvalue()) #! For now, we do not deal with this. Very difficult to log checkpoint across systems.
+    torch.save(checkpoint, ckpt_path)#! For now, we do not deal with this. Very difficult to log checkpoint across systems.
 
 
 class FedHeadAvg(fl.server.strategy.FedAvg):

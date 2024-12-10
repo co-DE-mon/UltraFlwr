@@ -34,7 +34,7 @@ Check `config.py` to see the default configurations [!IMPORTANT! Before starting
 12. For federated training: `./scripts/run.sh`
 13. For testing and getting client-wise global and local scores: `python /FedYOLO/test/test.py`
     - This automatically prints out tables in Ultralytics style.
-14. [To collect results] Run `FedYOLO/test/test.ipynb` to collect (our style) of tables for mAP scores across all global and local data and models.
+14. [To collect results] Run `FedYOLO/test/test.py` to collect (our style) of tables for mAP scores across all global and local data and models.
 
 ## To build Custom Data-set
 Follow the style of roboflow downloads as mentioned in above steps.
