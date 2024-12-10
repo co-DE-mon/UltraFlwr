@@ -35,7 +35,7 @@ CLIENT_CONFIG = {
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 1,
+    'rounds': 5,
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4
@@ -43,8 +43,8 @@ SERVER_CONFIG = {
 
 YOLO_CONFIG = {
     'batch_size': 10,
-    'epochs': 1,
+    'epochs': 10,
     'detect_module_weights': False #! This needs to be integrated into flower potentially?? Or maybe actually a custom strategy where the weights things is don eon the server code. #wontfix for now
 }
 
-#? I do not think we should dynamically adapt for clients??
+#? I do not think we should dynamically adapt for clients?? Maybe only the eval part. But then again, we can just have a separate script for that.
