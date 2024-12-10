@@ -1,4 +1,4 @@
-import io
+# import io
 import torch
 import numpy as np
 from datetime import datetime
@@ -66,7 +66,8 @@ class FedHeadAvg(fl.server.strategy.FedAvg):
             print(f"Saving round {server_round} aggregated_parameters...")
             aggregated_ndarrays = parameters_to_ndarrays(aggregated_parameters)
             params_dict = zip(net.state_dict().keys(), aggregated_ndarrays)
-            detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
+            # detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
+            detection_weights = {k: torch.tensor(v) for k, v in params_dict}
             state_dict = OrderedDict(detection_weights)
             net.load_state_dict(state_dict, strict=False) #! Because only a portion is being changed I think?
             save_model_checkpoint(server_round, model=net.model)

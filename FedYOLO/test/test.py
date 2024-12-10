@@ -107,9 +107,16 @@ def create_safe_dataframe(metrics, client_name):
         f'mAP@0.5:0.95_{client_name}': maps
     })
 
-def get_server_metrics(weights_path, dataset_name):
+def get_server_metrics(weights_path, dataset_name, training_strategy=None):
     server_model = YOLO(weights_path)
-    server_model_metrics = server_model.val(data=dataset_name, verbose=False, batch=16)
+    normal_model = YOLO()
+
+    if training_strategy == 'FedHeadAvg': #! Need to make a config for this as well
+        detection_weights = {k: v for k, v in server_model.model.state_dict().items() if k.startswith('model.detect')}
+        normal_model.model.load_state_dict({**normal_model.model.state_dict(), **detection_weights}, strict=False)   
+        server_model = normal_model 
+
+    server_model_metrics = server_model.val(data=dataset_name, verbose=True)
     del server_model
     torch.cuda.empty_cache()
     return server_model_metrics
@@ -152,3 +159,5 @@ print('#####################################')
 print(server_model_combined_table.to_string(index=False))
 print()
 print()
+
+#! There is some multiprocessing issue. To trigger something has to be running in the background.
