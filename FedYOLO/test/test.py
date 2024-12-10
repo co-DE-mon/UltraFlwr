@@ -86,6 +86,7 @@ print('##################')
 print()
 
 torch.backends.cudnn.benchmark = True
+torch.set_num_threads(1) # https://github.com/ultralytics/yolov5/issues/2960
 
 def safe_get_metrics(metrics):
     try:
