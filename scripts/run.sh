@@ -18,6 +18,7 @@ if [[ ! -f "$CLIENT_CONFIG_FILE" ]]; then
 fi
 
 DATASET_NAME=$(python3 -c "from FedYOLO.config import SPLITS_CONFIG; print(SPLITS_CONFIG['dataset_name'])")
+STRATEGY_NAME=$(python3 -c "from FedYOLO.config import SERVER_CONFIG; print(SERVER_CONFIG['strategy'])")
 
 # Function to start the server
 start_server() {
@@ -25,7 +26,7 @@ start_server() {
     echo "Freeing port 8080..."
     lsof -t -i:8080 | xargs kill -9 2>/dev/null
     echo "Starting server..."
-    SERVER_LOG="logs/server_log_${DATASET_NAME}.txt"
+    SERVER_LOG="logs/server_log_${DATASET_NAME}_${STRATEGY_NAME}.txt"
     python3 "$SERVER_SCRIPT" > "$SERVER_LOG" 2>&1 &
     SERVER_PID=$!
     PIDS+=($SERVER_PID)
@@ -36,7 +37,7 @@ start_server() {
 start_client() {
     CLIENT_CID=$1
     CLIENT_DATA_PATH=$(python3 -c "from FedYOLO.config import CLIENT_CONFIG; print(CLIENT_CONFIG[$CLIENT_CID]['data_path'])")
-    CLIENT_LOG="logs/client_${CLIENT_CID}_log_${DATASET_NAME}.txt"
+    CLIENT_LOG="logs/client_${CLIENT_CID}_log_${DATASET_NAME}_${STRATEGY_NAME}.txt"
     echo "Starting client $CLIENT_CID with data path: $CLIENT_DATA_PATH..."
     python3 "$CLIENT_SCRIPT" --cid="$CLIENT_CID" --data_path="$CLIENT_DATA_PATH" > "$CLIENT_LOG" 2>&1 &
     CLIENT_PID=$!

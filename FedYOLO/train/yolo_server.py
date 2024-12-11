@@ -42,7 +42,7 @@ def save_model_checkpoint(server_round: int, model=None) -> None:
         "docs": "https://docs.ultralytics.com",
     }
     
-    ckpt_path = f"{HOME}/weights/model_round_{server_round}_{SPLITS_CONFIG['dataset_name']}.pt"
+    ckpt_path = f"{HOME}/weights/model_round_{server_round}_{SPLITS_CONFIG['dataset_name']}_Strategy_{SERVER_CONFIG['strategy']}.pt"
     torch.save(checkpoint, ckpt_path)#! For now, we do not deal with this. Very difficult to log checkpoint across systems.
 
 
@@ -66,8 +66,10 @@ class FedHeadAvg(fl.server.strategy.FedAvg):
             print(f"Saving round {server_round} aggregated_parameters...")
             aggregated_ndarrays = parameters_to_ndarrays(aggregated_parameters)
             params_dict = zip(net.state_dict().keys(), aggregated_ndarrays)
-            # detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
-            detection_weights = {k: torch.tensor(v) for k, v in params_dict}
+            if SERVER_CONFIG["strategy"] == "FedHeadAvg":
+                detection_weights = {k: torch.tensor(v) for k, v in params_dict if k.startswith('model.detect')}
+            else:
+                detection_weights = {k: torch.tensor(v) for k, v in params_dict}
             state_dict = OrderedDict(detection_weights)
             net.load_state_dict(state_dict, strict=False) #! Because only a portion is being changed I think?
             save_model_checkpoint(server_round, model=net.model)

@@ -9,6 +9,7 @@ from FedYOLO.config import HOME, SPLITS_CONFIG, SERVER_CONFIG
 
 DATASET_NAME = SPLITS_CONFIG['dataset_name']
 NUM_ROUNDS = SERVER_CONFIG['rounds']
+STRATEGY = SERVER_CONFIG['strategy']
 
 #! HUGE DIFFERENCES BETWEEN SYSTEMS REGARDING FILES PATHS AND LOGGING. NEED TO IN-DEPTH TEST THIS.
 
@@ -19,7 +20,7 @@ print()
 
 def get_client_metrics(client_number, dataset_name):
     # Extract paths
-    client_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
+    client_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}_{STRATEGY}.txt")
     weights = f"{HOME}/{client_model_weights_path}/weights/best.pt"
     
     # Load and validate local model
@@ -35,7 +36,7 @@ def get_client_metrics(client_number, dataset_name):
     torch.cuda.empty_cache()
     
     # Extract global model weights
-    client_global_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}.txt")
+    client_global_model_weights_path = extract_results_path(f"{HOME}/logs/client_{client_number}_log_{dataset_name}_{STRATEGY}.txt")
     global_weights = f"{HOME}/{client_global_model_weights_path}/weights/best.pt"
     
     # Load and validate global model
@@ -121,7 +122,7 @@ def get_server_metrics(weights_path, dataset_name, training_strategy=None):
     torch.cuda.empty_cache()
     return server_model_metrics
 
-server_model_weights_path = f"{HOME}/weights/model_round_{NUM_ROUNDS}_{DATASET_NAME}.pt"
+server_model_weights_path = f"{HOME}/weights/model_round_{NUM_ROUNDS}_{DATASET_NAME}_Strategy_{STRATEGY}.pt"
 
 server_model_client0_dataset = f'{HOME}/datasets/{DATASET_NAME}/partitions/client_0/data.yaml'
 server_model_client0_table = get_server_metrics(server_model_weights_path, server_model_client0_dataset)
