@@ -1,18 +1,56 @@
 import yaml
 import shutil
 from pathlib import Path
+from prettytable import PrettyTable
 from FedYOLO.config import SPLITS_CONFIG
 
-def split_dataset(ratios, data_path):
+def count_classes(label_files):
+    """
+    Count occurrences of each class in the label files.
+    Args:
+        label_files (list): List of paths to label files
+    Returns:
+        dict: Dictionary with class indices as keys and their counts as values
+    """
+    class_counts = {}
+    
+    for label_file in label_files:
+        with open(label_file, 'r') as f:
+            for line in f:
+                class_id = int(line.split()[0])  # Assume class_id is the first entry in the line
+                class_counts[class_id] = class_counts.get(class_id, 0) + 1
+    
+    return class_counts
 
+def create_class_distribution_table(global_counts, client_counts, split):
+    """Create a table comparing the global and client-specific class distributions for a given split."""
+    
+    classes = sorted(set(global_counts.get(split, {}).keys()).union(
+        *[client_counts[client].get(split, {}).keys() for client in client_counts]
+    ))
+    
+    table = PrettyTable()
+    
+    # Column headers
+    table.field_names = ["Class", "Global Count"] + [f"{client} Count" for client in client_counts]
+    
+    for class_id in classes:
+        row = [
+            class_id, 
+            global_counts.get(split, {}).get(class_id, 0), 
+            *[client_counts[client].get(split, {}).get(class_id, 0) for client in client_counts]
+        ]
+        table.add_row(row)
+    
+    return table
+
+def split_dataset(ratios, data_path):
     """
     Split dataset for federated learning
     Args:
-        num_clients (int): Number of clients
         ratios (list): List of ratios for each client (must sum to 1)
         data_path (str): Path to dataset directory containing data.yaml
     """
-
     num_clients = len(ratios)
 
     # Validate inputs
@@ -26,6 +64,21 @@ def split_dataset(ratios, data_path):
     # Read original yaml file
     with open(data_path / 'data.yaml', 'r') as f:
         data = yaml.safe_load(f)
+
+    # Count global class-wise information
+    global_class_counts = {'train': {}, 'valid': {}, 'test': {}, 'total': {}}
+    for split in ['train', 'valid', 'test']:
+        label_files = list((data_path / split / 'labels').glob('*'))
+        split_class_counts = count_classes(label_files)
+        for class_id, count in split_class_counts.items():
+            global_class_counts[split][class_id] = count
+            global_class_counts['total'][class_id] = global_class_counts['total'].get(class_id, 0) + count
+
+    # Check if the sum of individual splits matches the total count
+    for class_id, total_count in global_class_counts['total'].items():
+        split_sum = sum(global_class_counts[split].get(class_id, 0) for split in ['train', 'valid', 'test'])
+        if split_sum != total_count:
+            raise ValueError(f"Mismatch in global class counts for class {class_id}: expected {total_count}, but got {split_sum}")
 
     partition_path = data_path / 'partitions'
     
@@ -42,14 +95,11 @@ def split_dataset(ratios, data_path):
         client_yaml['val'] = './valid/images'
         client_yaml['test'] = './test/images'
 
-        # client_yaml['train'] = f'../{client_dir}/train/images'
-        # client_yaml['val'] = f'../{client_dir}/valid/images'
-        # client_yaml['test'] = f'../{client_dir}/test/images'
-        
         with open(client_dir / 'data.yaml', 'w') as f:
             yaml.dump(client_yaml, f)
 
-    #? Rounding error handling via remaining files all in final client
+    client_class_counts = {f'client_{i}': {'train': {}, 'valid': {}, 'test': {}} for i in range(num_clients)}
+
     # Split and copy files
     for split in ['train', 'valid', 'test']:
         images = list((data_path / split / 'images').glob('*'))
@@ -57,7 +107,7 @@ def split_dataset(ratios, data_path):
         
         start_idx = 0
         remaining = len(images)
-        
+
         for client_id in range(num_clients):
             # For last client, use all remaining files
             if client_id == num_clients - 1:
@@ -76,6 +126,15 @@ def split_dataset(ratios, data_path):
                 shutil.copy2(lbl, client_dir / split / 'labels')
             
             start_idx += n_files
+            
+            # Count class-wise information
+            class_counts = count_classes(client_labels)
+            client_class_counts[f'client_{client_id}'][split] = class_counts
+
+        # Print the table for this split
+        table = create_class_distribution_table(global_class_counts, client_class_counts, split)
+        print(f"\nClass distribution for {split} split:")
+        print(table)
 
 # Example usage:
 split_dataset(SPLITS_CONFIG['ratio'], SPLITS_CONFIG['dataset'])
