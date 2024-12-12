@@ -18,9 +18,9 @@ Inspiration from existing issues:
 
 Check `config.py` to see the default configurations [!IMPORTANT! Before starting make sure to make the relevant changes here]
 
-1. (Highly Recommended) Make a custom environment: `python -m venv fedlytics`
-2. Clone the repository: `git clone https://github.com/Yang-Li86/FedDet.git`
-3. `cd` into the repository: `cd FedDet`
+1. (Highly Recommended) Make a custom environment: `python -m venv ultraflwr`
+2. Clone the repository: `git clone https://github.com/Yang-Li86/UltraFlwr.git`
+3. `cd` into the repository: `cd UltraFlower`
 4. pip install the requirements: `pip install -e .`
 5. Create the `weights` and `logs` folders: `mkdir weights logs`
 6. `cd` into the data-sets folder: `cd datasets`
