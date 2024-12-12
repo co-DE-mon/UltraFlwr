@@ -1,18 +1,9 @@
 #!/bin/bash
 
-# Get the current directory
-CURRENT_DIR="$(pwd)"
+LOCAL_HOME="$(git rev-parse --show-toplevel)"
 
-# Go back to steps from CURRENT_DIR to get the local home directory
-cd ../..
-
-# Echo the local home directory
-LOCAL_HOME="$(pwd)"
-
-CONFIG_FILE="$LOCAL_HOME/FedYOLO/config.py"
-
-# File path to the Python script
 PYTHON_SCRIPT="$LOCAL_HOME/FedYOLO/test/test.py"
+CONFIG_FILE="$LOCAL_HOME/FedYOLO/config.py"
 
 # Extract configurations from the Python config file using Python
 DATASET_NAME=$(python3 -c "import sys; sys.path.append('$LOCAL_HOME/FedYOLO'); import config; print(config.DATASET_NAME)")
@@ -40,3 +31,5 @@ for dataset in "${datasets[@]}"; do
     done
   done
 done
+
+#! server-server is being computed multiple times. Will Fix it later.

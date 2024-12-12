@@ -13,7 +13,7 @@ if [[ ! -f "$CLIENT_CONFIG_FILE" ]]; then
 fi
 
 # List of datasets and strategies
-DATASET_NAME_LIST=("baseline" "pills")
+DATASET_NAME_LIST=("baseline")
 STRATEGY_LIST=("FedHeadAvg" "FedAvg" "FedMedian")
 
 # Loop over each dataset and strategy

@@ -39,7 +39,7 @@ SERVER_CONFIG = {
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4,
-    'strategy': "FedHeadAvg"
+    'strategy': 'FedMedian',
 }
 
 YOLO_CONFIG = {

@@ -32,9 +32,9 @@ Check `config.py` to see the default configurations [!IMPORTANT! Before starting
     - Go to the base of the clone: `cd ../../`
     - Create the splits: `python FedYOLO/data_partitioner/fed_split.py` (configs) 
 12. For federated training: `./scripts/run.sh`
-13. For testing and getting client-wise global and local scores: `python /FedYOLO/test/test.py`
+13. For testing and getting client-wise global and local scores: `./FedYOLO/test/test.sh`
     - This automatically prints out tables in Ultralytics style.
-    - Collects (our style, suitable for latex) tables for mAP scores across all global and local data and models.
+14. To collect tables (suitable for latex) for all scores across all global and local data and models: `python /FedYOLO/test/master_table.py`
 
 ## To build Custom Data-set
 Follow the style of roboflow downloads as mentioned in above steps.
