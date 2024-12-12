@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Navigate to directory
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-cd $SCRIPTPATH
-cd ..
+# Get the root directory of the repo
+LOCAL_HOME="$(git rev-parse --show-toplevel)"
+
+# Navigate to the repo root
+cd "$LOCAL_HOME"
 
 # Read CLIENT_CONFIG from Python file
 CLIENT_CONFIG_FILE="./FedYOLO/config.py"
@@ -29,7 +30,7 @@ for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do
         sed -i "s/^\s*'strategy': .*/    'strategy': '${STRATEGY}',/" $CLIENT_CONFIG_FILE
         
         # Run the base bash file
-        bash $SCRIPTPATH/run.sh
+        bash "$SCRIPTPATH/run.sh"
 
         # newline
         echo ""

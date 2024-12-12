@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# Navigate to directory
-SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
-cd $SCRIPTPATH
-cd ..
+# Get the root directory of the repo
+LOCAL_HOME="$(git rev-parse --show-toplevel)"
+
+# Navigate to the repo root
+cd "$LOCAL_HOME"
 
 # Default values for arguments
 SERVER_SCRIPT="FedYOLO/train/yolo_server.py"
