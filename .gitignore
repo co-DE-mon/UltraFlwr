@@ -1,13 +1,23 @@
+# Ignore all datasets except baseline
+datasets/*
+!datasets/baseline
+
+# Ignore any folder called runs anywhere in the tree
+**/runs/
+
+# Ignore all __pycache__ directories and .pyc files
+**/__pycache__/
+*.pyc
+
+# Ignore all .cache files
+*.cache
+
 *.pt
-/runs
 paper.md
 /__pycache__
 /dec_3_flower_env
 /FedYOLO.egg-info
-/datasets/pills
 /datasets/dogs
-/does_this_work
 /FedYOLO/__pycache__
-/ultraflwr
 /logs
 /weights
