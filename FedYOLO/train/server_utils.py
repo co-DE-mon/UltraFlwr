@@ -36,7 +36,7 @@ def write_yolo_config(dataset_name, num_classes=None):
     if num_classes is not None:
         base_yaml_content = base_yaml_content.replace("nc: 80", f"nc: {num_classes}")
 
-    filename = f"{HOME}/yolo_configs/yolo11n_{dataset_name}.yaml"
+    filename = f"{HOME}/FedYOLO/yolo_configs/yolo11n_{dataset_name}.yaml"
     with open(filename, "w") as file:
         file.write(base_yaml_content)
     

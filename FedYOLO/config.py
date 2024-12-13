@@ -8,7 +8,7 @@ def get_nc_from_yaml(yaml_path):
     return data.get('nc', None)
 ######################################################################
 ######################### For Single Dataset #########################
-DATASET_NAME = 'bccd' 
+DATASET_NAME = 'bccd'
 #! This is also used for the splitting of the datasets.
 ######################################################################
 
@@ -43,7 +43,7 @@ SERVER_CONFIG = {
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4,
-    'strategy': 'FedMedian', # FedAvg, FedHeadAvg, FedMedian, FedHeadMedian
+    'strategy': 'FedHeadMedian',
 }
 
 YOLO_CONFIG = {
