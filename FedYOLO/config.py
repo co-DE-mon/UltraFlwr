@@ -8,7 +8,7 @@ def get_nc_from_yaml(yaml_path):
     return data.get('nc', None)
 ######################################################################
 ######################### For Single Dataset #########################
-DATASET_NAME = 'baseline'
+DATASET_NAME = 'bccd'
 #! This is also used for the splitting of the datasets.
 ######################################################################
 
