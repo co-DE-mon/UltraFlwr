@@ -11,7 +11,7 @@ from ultralytics import YOLO
 from FedYOLO.train.server_utils import save_model_checkpoint
 from FedYOLO.config import SPLITS_CONFIG, HOME
 
-class BaseSaveStrategy(fl.server.strategy.FedAvg):
+class BaseYOLOSaveStrategy(fl.server.strategy.FedAvg):
     """Base class for custom FL strategies to save aggregated YOLO model checkpoints."""
 
     def __init__(self, *args, **kwargs):
@@ -52,21 +52,21 @@ class BaseSaveStrategy(fl.server.strategy.FedAvg):
         return aggregated_parameters, aggregated_metrics
 
 
-class FedAvg(BaseSaveStrategy):
+class FedAvg(BaseYOLOSaveStrategy):
     """Custom FL strategy to save aggregated YOLO model checkpoints."""
     update_head_only = False
 
 
-class FedMedian(BaseSaveStrategy, fl.server.strategy.FedMedian):
+class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     """Custom FL strategy to save aggregated YOLO model checkpoints."""
     update_head_only = False
 
 
-class FedHeadAvg(BaseSaveStrategy):
+class FedHeadAvg(BaseYOLOSaveStrategy):
     """Custom FL strategy to save head-only aggregated YOLO model checkpoints."""
     update_head_only = True
 
 
-class FedHeadMedian(BaseSaveStrategy, fl.server.strategy.FedMedian):
+class FedHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     """Custom FL strategy to save head-only aggregated YOLO model checkpoints."""
     update_head_only = True
