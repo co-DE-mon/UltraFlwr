@@ -8,7 +8,7 @@ from ultralytics import YOLO
 from FedYOLO.train.server_utils import write_yolo_config
 from FedYOLO.train.strategies import FedAvg, FedHeadAvg, FedMedian, FedHeadMedian
 
-from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG
+from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 
 
 def fit_config(server_round: int) -> dict:
@@ -24,8 +24,7 @@ def get_parameters(net: YOLO) -> list[np.ndarray]:
 def initialize_yolo(dataset_name: str, num_classes: int) -> YOLO:
     """Initialize YOLO model with the specified dataset and number of classes."""
     write_yolo_config(dataset_name, num_classes)
-    return YOLO()
-
+    return YOLO(f"{HOME}/yolo_configs/yolo11n_{dataset_name}.yaml")
 
 def get_strategy(strategy_class, initial_parameters) -> fl.server.strategy.Strategy:
     """Initialize the strategy using the provided class and configuration."""

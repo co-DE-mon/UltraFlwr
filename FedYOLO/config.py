@@ -1,17 +1,21 @@
 import yaml
 
-BASE = "/home/localssk23" # YOUR PATH HERE
-HOME = f"{BASE}/UltraFlwr"
-DATASET_NAME = 'baseline'
-DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
-
-#? Directly gettin the number of classes for a datset from the data.yaml file
+######################### Helper Functions ###########################
+# To get number of classes for a datset from the data.yaml file #
 def get_nc_from_yaml(yaml_path):
     with open(yaml_path, 'r') as file:
         data = yaml.safe_load(file)
     return data.get('nc', None)
+######################################################################
+######################### For Single Dataset #########################
+DATASET_NAME = 'bccd' 
+#! This is also used for the splitting of the datasets.
+######################################################################
 
-# Read nc from the first client's data.yaml file
+BASE = "/home/localssk23" # YOUR PATH HERE
+HOME = f"{BASE}/UltraFlwr"
+
+DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 DATA_YAML = f"{DATASET_PATH}/data.yaml"
 NC = get_nc_from_yaml(DATA_YAML)
 
@@ -39,7 +43,7 @@ SERVER_CONFIG = {
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4,
-    'strategy': 'FedMedian',
+    'strategy': 'FedMedian', # FedAvg, FedHeadAvg, FedMedian, FedHeadMedian
 }
 
 YOLO_CONFIG = {

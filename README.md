@@ -1,45 +1,59 @@
-# UltraFlwr: Federated Object Detection Using [Ultralytics](https://github.com/Ultralytics/Ultralytics) and [Flower](https://github.com/adap/flower)
-
-This repository contains code to run YOLOv11 off-the-shelf within the flower framework.
+# UltraFlwr: Federated Object Detection 
+This repository contains code to all [Ultralytics](https://github.com/Ultralytics/Ultralytics) YOLO models off-the-shelf within the [Flower](https://github.com/adap/flower) framework.
 
 Developed by [Yang-Li86](https://github.com/Yang-Li86) and [aymuos15](https://aymuos15.github.io/) :D
 
+--------
+
 Inspiration from existing issues:
+
 1. Exact Ask in Ultralytics Library | [Issue](https://github.com/orgs/Ultralytics/discussions/9440)
 2. Problem of loading the YOLO state | dict [Issue](https://github.com/Ultralytics/Ultralytics/issues/8804) 
     - (Similar issue raised by us: [Issue](https://github.com/Ultralytics/Ultralytics/issues/18097))
-3. There is a need to easily integrate flower strategies with Ultralytics | [Issue](https://github.com/Ultralytics/Ultralytics/issues/14535) 
+3. Need to easily integrate flower strategies with Ultralytics | [Issue](https://github.com/Ultralytics/Ultralytics/issues/14535) 
 4. Request from mmlab support in flower indicates a want from the community to be able to do federated object detection | [Issue](https://github.com/adap/flower/issues/4521)
-5. Unlike mmlab, Ultralytics allow the easy change of heads (during inference) for multiple tasks. Therefore, there is a definite need for this to be integrated within flower as well.
+
+Inspiration from actual need:
+
+5. Ultralytics allows the easy change of heads (during inference) for multiple tasks.
 6. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking)
-7. Another primary objective was to create detection specifc stratigies. Our proposal: FedHeadAvg
+7. Create detection specifc aggregation stratigies. Our initial proposal: **FedHeadAvg**
 
-## Step by Step Guide to End-to-End Training/Testing with the Example [Pills Data-set](https://universe.roboflow.com/roboflow-100/pills-sxdht)
+## Usage Guide with [Pills Data-set](https://universe.roboflow.com/roboflow-100/pills-sxdht)
 
-Check `config.py` to see the default configurations [!IMPORTANT! Before starting make sure to make the relevant changes here]
+Check `FedYOLO/config.py` to see the default configurations 
 
 1. (Highly Recommended) Make a custom environment: `python -m venv ultraflwr`
 2. Clone the repository: `git clone https://github.com/Yang-Li86/UltraFlwr.git`
 3. `cd` into the repository: `cd UltraFlower`
 4. pip install the requirements: `pip install -e .`
-5. Create the `weights` and `logs` folders: `mkdir weights logs`
-6. `cd` into the data-sets folder: `cd datasets`
-7. Make a directory for a specific data-set: `mkdir pills`
-8. `cd` into the data-set folder: `cd pills`
-9. Get data-set from roboflow: `curl -L "https://universe.roboflow.com/ds/ojBLb70TPf?key=XwOAnIyCjF" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip`
-10. Create a directory for the client specific data-sets: `mkdir partitions`
-11. Create the partitions
-    - Go to the base of the clone: `cd ../../`
-    - Create the splits: `python FedYOLO/data_partitioner/fed_split.py` (configs) 
-12. For federated training: `./scripts/run.sh`
-13. For testing and getting client-wise global and local scores: `./FedYOLO/test/test.sh`
-    - This automatically prints out tables in Ultralytics style.
-14. To collect tables (suitable for latex) for all scores across all global and local data and models: `python /FedYOLO/test/master_table.py`
 
-## To build Custom Data-set
+### Preparing datasets
+
+5. `cd` into the data-sets folder: `cd datasets`
+6. Make a directory for a specific data-set: `mkdir pills`
+7. `cd` into the data-set folder: `cd pills`
+8. Get data-set from roboflow: `curl -L "https://universe.roboflow.com/ds/ojBLb70TPf?key=XwOAnIyCjF" > roboflow.zip; unzip roboflow.zip; rm roboflow.zip`
+9. Create a directory for the client specific data-sets: `mkdir partitions`
+10. Create the partitions
+    - Go to the base of the clone: `cd ../../`
+    - Create the splits: `python FedYOLO/data_partitioner/fed_split.py` 
+        - To choose the dataset, change the `DATASET_NAME` parameter in the `FedYOLO/config.py` file
+
+#### To build Custom Data-set
 Follow the style of roboflow downloads as mentioned in above steps.
 
 ![sample_dataset](./assets/sample_dataset.png)
+
+### Training
+
+11. For federated training: `./scripts/run.sh`
+
+### Testing
+
+12. For testing and getting client-wise global and local scores: `./FedYOLO/test/test.sh`
+    - This automatically prints out tables in Ultralytics style.
+13. To collect tables (suitable for latex) for all scores across all global and local data and models: `python /FedYOLO/test/master_table.py`
 
 ## Baseline Tasks
 - [x] Proper Federated Training using off-the-shelf flower strategies.

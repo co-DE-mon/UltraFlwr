@@ -2,6 +2,12 @@
 datasets/*
 !datasets/baseline
 
+# Ignore everything in runs, logs, weights and results folder
+runs/*
+logs/*
+weights/*
+results/*
+
 # Ignore any folder called runs anywhere in the tree
 **/runs/
 
@@ -13,11 +19,7 @@ datasets/*
 *.cache
 
 *.pt
+*.yaml
 paper.md
-/__pycache__
 /dec_3_flower_env
 /FedYOLO.egg-info
-/datasets/dogs
-/FedYOLO/__pycache__
-/logs
-/weights
