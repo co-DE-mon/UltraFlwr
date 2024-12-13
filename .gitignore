@@ -7,6 +7,9 @@ runs/*
 logs/*
 weights/*
 results/*
+!logs/.gitkeep
+!weights/.gitkeep
+!results/.gitkeep
 
 # Ignore any folder called runs anywhere in the tree
 **/runs/
@@ -19,7 +22,7 @@ results/*
 *.cache
 
 *.pt
-*.yaml
 paper.md
 /dec_3_flower_env
 /FedYOLO.egg-info
+ultraflwr

@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 import flwr as fl
@@ -23,11 +25,16 @@ def get_parameters(net: YOLO) -> list[np.ndarray]:
 
 def create_yolo_yaml(dataset_name: str, num_classes: int) -> YOLO:
     """Initialize YOLO model with the specified dataset and number of classes."""
+
     write_yolo_config(dataset_name, num_classes)
     return YOLO(f"{HOME}/FedYOLO/yolo_configs/yolo11n_{dataset_name}.yaml")
 
 def main() -> None:
     """Start the FL server with custom strategy."""
+    # make the directory HOME/FedYOLO/yolo_configs if it does not exist
+    if not os.path.exists(f"{HOME}/FedYOLO/yolo_configs"):
+        os.makedirs(f"{HOME}/FedYOLO/yolo_configs")
+
     # Create dataset specific YOLO yaml
     create_yolo_yaml(SPLITS_CONFIG["dataset_name"], SPLITS_CONFIG["num_classes"])
 
