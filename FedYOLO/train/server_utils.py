@@ -25,7 +25,7 @@ def save_model_checkpoint(server_round: int, model=None) -> None:
     }
     
     ckpt_path = f"{HOME}/weights/model_round_{server_round}_{SPLITS_CONFIG['dataset_name']}_Strategy_{SERVER_CONFIG['strategy']}.pt"
-    torch.save(checkpoint, ckpt_path)#! For now, we do not deal with this. Very difficult to log checkpoint across systems.
+    torch.save(checkpoint, ckpt_path)#! For now, we do not deal with this. Very cumbersome to log checkpoint across systems.
 
 def write_yolo_config(dataset_name, num_classes=None):
     base_yaml = f"{HOME}/FedYOLO/train/yolov11.yaml"

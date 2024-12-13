@@ -8,7 +8,7 @@ def get_nc_from_yaml(yaml_path):
     return data.get('nc', None)
 ######################################################################
 ######################### For Single Dataset #########################
-DATASET_NAME = 'bccd'
+DATASET_NAME = 'baseline'
 #! This is also used for the splitting of the datasets.
 ######################################################################
 
@@ -39,7 +39,7 @@ CLIENT_CONFIG = {
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 2,
+    'rounds': 1,
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4,
@@ -48,7 +48,7 @@ SERVER_CONFIG = {
 
 YOLO_CONFIG = {
     'batch_size': 10,
-    'epochs': 2,
+    'epochs': 1,
 }
 
 #? I do not think we should dynamically adapt for clients?? Maybe only the eval part. But then again, we can just have a separate script for that.

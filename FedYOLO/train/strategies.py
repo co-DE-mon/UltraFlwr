@@ -12,11 +12,11 @@ from FedYOLO.train.server_utils import save_model_checkpoint
 from FedYOLO.config import SPLITS_CONFIG, HOME
 
 class BaseYOLOSaveStrategy(fl.server.strategy.FedAvg):
-    """Base class for custom FL strategies to save aggregated YOLO model checkpoints."""
+    """Base class for custom FL strategies to save YOLO model checkpoints."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.model_path = f"{HOME}/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml"
+        self.model_path = f"{HOME}/FedYOLO/yolo_configs/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml"
 
     def load_and_update_model(self, aggregated_parameters: Parameters, update_head_only: bool = False) -> YOLO:
         """Load YOLO model and update weights with aggregated parameters."""
@@ -57,7 +57,7 @@ class FedAvg(BaseYOLOSaveStrategy):
     update_head_only = False
 
 
-class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
+class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedAvg):
     """Custom FL strategy to save aggregated YOLO model checkpoints."""
     update_head_only = False
 
@@ -67,6 +67,6 @@ class FedHeadAvg(BaseYOLOSaveStrategy):
     update_head_only = True
 
 
-class FedHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
+class FedHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedAvg):
     """Custom FL strategy to save head-only aggregated YOLO model checkpoints."""
     update_head_only = True

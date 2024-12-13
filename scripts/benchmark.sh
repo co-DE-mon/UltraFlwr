@@ -30,7 +30,7 @@ for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do
         sed -i "s/^\s*'strategy': .*/    'strategy': '${STRATEGY}',/" $CLIENT_CONFIG_FILE
         
         # Run the base bash file
-        bash "$SCRIPTPATH/run.sh"
+        bash "$LOCAL_HOME/scripts/run.sh"
 
         # newline
         echo ""

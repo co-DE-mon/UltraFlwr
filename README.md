@@ -47,7 +47,7 @@ Follow the style of roboflow downloads as mentioned in above steps.
 
 ### Training
 
-11. For federated training: `./scripts/run.sh`
+11. For federated training: `./run/run.sh`
 
 ### Testing
 
