@@ -12,7 +12,7 @@ DATASET_NAME = 'pill_tem'
 #! This is also used for the splitting of the datasets.
 ######################################################################
 
-BASE = "/home/yang/Documents/GitHub" # YOUR PATH HERE
+BASE = "" # YOUR PATH HERE
 HOME = f"{BASE}/UltraFlwr"
 
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
