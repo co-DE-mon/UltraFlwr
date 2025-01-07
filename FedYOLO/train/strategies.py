@@ -45,7 +45,6 @@ class BaseYOLOSaveStrategy(fl.server.strategy.FedAvg):
         )
 
         if aggregated_parameters is not None:
-            print(f"Saving round {server_round} aggregated_parameters...")
             net = self.load_and_update_model(aggregated_parameters, update_head_only=self.update_head_only)
             save_model_checkpoint(server_round, model=net.model)
 

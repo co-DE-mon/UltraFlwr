@@ -1,6 +1,7 @@
 from FedYOLO.config import SERVER_CONFIG, DATASET_NAME, HOME, DATASET_PATH
 import yaml
 import pandas as pd
+import numpy as np
 
 DATASET = DATASET_NAME
 CONFIG_STRATEGY = SERVER_CONFIG['strategy']
@@ -28,10 +29,6 @@ dfs = {
     key: pd.read_csv(path) for key, path in result_paths.items()
 }
 
-# Add 'class' column to relevant DataFrames
-for df in [dfs["server_results_client_0"], dfs["server_results_client_1"], dfs["server_results_server"]]:
-    df['class'] = class_names
-
 # Add 'source' column to each DataFrame
 source_labels = {
     "client_0_results_client": 'Client 0 - Client',
@@ -43,13 +40,17 @@ source_labels = {
     "server_results_server": 'Server - Server'
 }
 
+# Process each DataFrame
 for key, df in dfs.items():
     df['source'] = source_labels[key]
+    if key.startswith('server'):
+        rows_per_class = len(df) // len(class_names)
+        df['class'] = np.repeat(class_names, rows_per_class)
 
 # Concatenate all DataFrames into the master table
 master_table = pd.concat(list(dfs.values()), ignore_index=True)
 
-# Pivot the table to reduce redundancy and make it more intuitive
+# Pivot the table
 pivoted_table = master_table.pivot_table(
     index='class', 
     columns='source', 
@@ -57,32 +58,25 @@ pivoted_table = master_table.pivot_table(
     aggfunc='first'
 )
 
-# Flatten the column multi-index for easier reading
+# Flatten column multi-index
 pivoted_table.columns = [f'{metric} - {source}' for metric, source in pivoted_table.columns]
 
-# pivot again to the more rows and less columns
+# Reshape for better visualization
 pivoted_table = pivoted_table.reset_index()
 pivoted_table = pd.melt(pivoted_table, id_vars='class', var_name='metric - source', value_name='value')
 
-# Separate the data for each metric more precisely
+# Separate tables for each metric
 precision_table = pivoted_table[pivoted_table['metric - source'].str.startswith('precision')]
 recall_table = pivoted_table[pivoted_table['metric - source'].str.startswith('recall')]
-map50_table = pivoted_table[pivoted_table['metric - source'].str.startswith('mAP50') & 
-                            ~pivoted_table['metric - source'].str.contains('mAP50-95')]
-map95_table = pivoted_table[pivoted_table['metric - source'].str.contains('mAP50-95')]
+map50_table = pivoted_table[pivoted_table['metric - source'].str.startswith('mAP50 -')]  # Changed pattern
+map95_table = pivoted_table[pivoted_table['metric - source'].str.startswith('mAP50-95')]
 
-# Print each metric table separately
-print("Precision Table:")
+# Print results
+print("\nPrecision Table:")
 print(precision_table)
-print("\n")
-
-print("Recall Table:")
+print("\nRecall Table:")
 print(recall_table)
-print("\n")
-
-print("mAP50 Table:")
+print("\nmAP50 Table:")
 print(map50_table)
-print("\n")
-
-print("mAP50-95 Table:")
+print("\nmAP50-95 Table:")
 print(map95_table)

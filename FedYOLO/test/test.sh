@@ -17,6 +17,7 @@ IFS=',' read -r -a client_nums <<< "$CLIENT_CONFIG_cid"
 
 # Define scoring styles
 scoring_styles=("client-client" "client-server" "server-client" "server-server")
+# scoring_styles=("server-client" "server-server")
 
 # Loop through each combination of dataset, strategy, client number, and scoring style
 for dataset in "${datasets[@]}"; do

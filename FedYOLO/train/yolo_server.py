@@ -45,23 +45,24 @@ def main() -> None:
         "FedAvg": FedAvg,
         "FedMedian": FedMedian,
         "FedHeadMedian": FedHeadMedian,
-        "default": FedHeadAvg,
+        "FedHeadAvg": FedHeadAvg, #! Error handling
     }
 
-    strategy_class = strategies.get(SERVER_CONFIG["strategy"], strategies["default"])
+    # If the strategy does not match any in config, throw error
+    strategy_class = strategies.get(SERVER_CONFIG["strategy"])
+    
     strategy = strategy_class(
         fraction_fit=SERVER_CONFIG["sample_fraction"],
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
         on_fit_config_fn=fit_config,
         initial_parameters=initial_parameters,
     )
-    
+
     fl.server.start_server(
         server_address=SERVER_CONFIG["server_address"],
         config=fl.server.ServerConfig(num_rounds=SERVER_CONFIG["rounds"]),
         strategy=strategy,
     )
-
 
 if __name__ == "__main__":
     main()
