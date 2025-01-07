@@ -56,17 +56,14 @@ class FedAvg(BaseYOLOSaveStrategy):
     """Custom FL strategy to save aggregated YOLO model checkpoints."""
     update_head_only = False
 
-
-class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedAvg):
-    """Custom FL strategy to save aggregated YOLO model checkpoints."""
-    update_head_only = False
-
-
 class FedHeadAvg(BaseYOLOSaveStrategy):
     """Custom FL strategy to save head-only aggregated YOLO model checkpoints."""
     update_head_only = True
 
+class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
+    """Custom FL strategy to save aggregated YOLO model checkpoints."""
+    update_head_only = False
 
-class FedHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedAvg):
+class FedHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     """Custom FL strategy to save head-only aggregated YOLO model checkpoints."""
     update_head_only = True

@@ -41,37 +41,21 @@ def main() -> None:
     # Initialize server side parameters
     initial_parameters = ndarrays_to_parameters(get_parameters(YOLO()))
 
-    if SERVER_CONFIG["strategy"] == "FedAvg":
-        strategy = FedAvg(
-            fraction_fit=SERVER_CONFIG["sample_fraction"],
-            min_fit_clients=SERVER_CONFIG["min_num_clients"],
-            on_fit_config_fn=fit_config,
-            initial_parameters=initial_parameters,
-        )
-    elif SERVER_CONFIG["strategy"] == "FedMedian":
-        strategy = FedMedian(
-            fraction_fit=SERVER_CONFIG["sample_fraction"],
-            min_fit_clients=SERVER_CONFIG["min_num_clients"],
-            on_fit_config_fn=fit_config,
-            initial_parameters=initial_parameters,
-        )
-    elif SERVER_CONFIG["strategy"] == "FedHeadMedian":
-        strategy = FedHeadMedian(
-            fraction_fit=SERVER_CONFIG["sample_fraction"],
-            min_fit_clients=SERVER_CONFIG["min_num_clients"],
-            on_fit_config_fn=fit_config,
-            initial_parameters=initial_parameters,
-        )
-    else:
-        strategy = FedHeadAvg(
-            fraction_fit=SERVER_CONFIG["sample_fraction"],
-            min_fit_clients=SERVER_CONFIG["min_num_clients"],
-            on_fit_config_fn=fit_config,
-            initial_parameters=initial_parameters,
-        )
- 
-    #! If you want FedAvg, replace FedHeadAvg with fl.server.strategy.FedAvg
- 
+    strategies = {
+        "FedAvg": FedAvg,
+        "FedMedian": FedMedian,
+        "FedHeadMedian": FedHeadMedian,
+        "default": FedHeadAvg,
+    }
+
+    strategy_class = strategies.get(SERVER_CONFIG["strategy"], strategies["default"])
+    strategy = strategy_class(
+        fraction_fit=SERVER_CONFIG["sample_fraction"],
+        min_fit_clients=SERVER_CONFIG["min_num_clients"],
+        on_fit_config_fn=fit_config,
+        initial_parameters=initial_parameters,
+    )
+    
     fl.server.start_server(
         server_address=SERVER_CONFIG["server_address"],
         config=fl.server.ServerConfig(num_rounds=SERVER_CONFIG["rounds"]),

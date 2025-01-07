@@ -8,11 +8,11 @@ def get_nc_from_yaml(yaml_path):
     return data.get('nc', None)
 ######################################################################
 ######################### For Single Dataset #########################
-DATASET_NAME = 'pill_tem'
+DATASET_NAME = 'baseline'
 #! This is also used for the splitting of the datasets.
 ######################################################################
 
-BASE = "" # YOUR PATH HERE
+BASE = "/home/localssk23" # YOUR PATH HERE
 HOME = f"{BASE}/UltraFlwr"
 
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
