@@ -8,7 +8,13 @@ from flwr.common import ndarrays_to_parameters
 from ultralytics import YOLO
 
 from FedYOLO.train.server_utils import write_yolo_config
-from FedYOLO.train.strategies import FedAvg, FedHeadAvg, FedMedian, FedHeadMedian
+from FedYOLO.train.strategies import (
+    FedAvg, FedMedian,
+    FedHeadAvg, FedHeadMedian,
+    FedNeckAvg, FedNeckMedian,
+    FedBackboneAvg, FedBackboneMedian,
+    FedNeckHeadAvg, FedNeckHeadMedian
+)
 
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 
@@ -25,15 +31,14 @@ def get_parameters(net: YOLO) -> list[np.ndarray]:
 
 def create_yolo_yaml(dataset_name: str, num_classes: int) -> YOLO:
     """Initialize YOLO model with the specified dataset and number of classes."""
-
     write_yolo_config(dataset_name, num_classes)
     return YOLO(f"{HOME}/FedYOLO/yolo_configs/yolo11n_{dataset_name}.yaml")
 
+
 def main() -> None:
     """Start the FL server with custom strategy."""
-    # make the directory HOME/FedYOLO/yolo_configs if it does not exist
-    if not os.path.exists(f"{HOME}/FedYOLO/yolo_configs"):
-        os.makedirs(f"{HOME}/FedYOLO/yolo_configs")
+    # Make the directory HOME/FedYOLO/yolo_configs if it does not exist
+    os.makedirs(f"{HOME}/FedYOLO/yolo_configs", exist_ok=True)
 
     # Create dataset specific YOLO yaml
     create_yolo_yaml(SPLITS_CONFIG["dataset_name"], SPLITS_CONFIG["num_classes"])
@@ -41,16 +46,33 @@ def main() -> None:
     # Initialize server side parameters
     initial_parameters = ndarrays_to_parameters(get_parameters(YOLO()))
 
+    # Map of available strategies
     strategies = {
+        # FedAvg variations
         "FedAvg": FedAvg,
+        "FedHeadAvg": FedHeadAvg,
+        "FedNeckAvg": FedNeckAvg,
+        "FedBackboneAvg": FedBackboneAvg,
+        "FedNeckHeadAvg": FedNeckHeadAvg,
+        
+        # FedMedian variations
         "FedMedian": FedMedian,
         "FedHeadMedian": FedHeadMedian,
-        "FedHeadAvg": FedHeadAvg, #! Error handling
+        "FedNeckMedian": FedNeckMedian,
+        "FedBackboneMedian": FedBackboneMedian,
+        "FedNeckHeadMedian": FedNeckHeadMedian,
     }
 
-    # If the strategy does not match any in config, throw error
-    strategy_class = strategies.get(SERVER_CONFIG["strategy"])
+    # Get the strategy class from config
+    strategy_name = SERVER_CONFIG["strategy"]
+    if strategy_name not in strategies:
+        raise ValueError(
+            f"Invalid strategy '{strategy_name}'. Available strategies: {', '.join(strategies.keys())}"
+        )
     
+    strategy_class = strategies[strategy_name]
+    
+    # Initialize the strategy
     strategy = strategy_class(
         fraction_fit=SERVER_CONFIG["sample_fraction"],
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
@@ -58,11 +80,13 @@ def main() -> None:
         initial_parameters=initial_parameters,
     )
 
+    # Start Flower server
     fl.server.start_server(
         server_address=SERVER_CONFIG["server_address"],
         config=fl.server.ServerConfig(num_rounds=SERVER_CONFIG["rounds"]),
         strategy=strategy,
     )
+
 
 if __name__ == "__main__":
     main()

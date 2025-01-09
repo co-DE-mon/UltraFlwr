@@ -39,16 +39,16 @@ CLIENT_CONFIG = {
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 4,
+    'rounds': 2,
     'sample_fraction': 1.0,
     'min_num_clients': 2,
     'max_num_clients': 4,
-    'strategy': 'FedHeadAvg',
+    'strategy': 'FedNeckHeadAvg',
 }
 
 YOLO_CONFIG = {
     'batch_size': 10,
-    'epochs': 15,
+    'epochs': 2,
 }
 
 #? I do not think we should dynamically adapt for clients?? Maybe only the eval part. But then again, we can just have a separate script for that.
