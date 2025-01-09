@@ -1,0 +1,11 @@
+[Server Tests] Running with dataset=anki, strategy=FedAvg, scoring_style=server-server
+Downloading https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt to 'yolo11n.pt'...
+  0%|          | 0.00/5.35M [00:00<?, ?B/s] 42%|████▏     | 2.25M/5.35M [00:00<00:00, 23.0MB/s]100%|██████████| 5.35M/5.35M [00:00<00:00, 30.4MB/s]
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n_anki summary (fused): 238 layers, 2,582,347 parameters, 12,675 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/4 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  25%|██▌       | 1/4 [00:01<00:03,  1.29s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 2/4 [00:02<00:02,  1.05s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  75%|███████▌  | 3/4 [00:02<00:00,  1.06it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:04<00:00,  1.09s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:04<00:00,  1.07s/it]
+                   all         61         55    0.00295      0.982      0.782      0.643
+Speed: 4.1ms preprocess, 51.4ms inference, 0.0ms loss, 9.4ms postprocess per image
+Results saved to [1mruns/detect/val2[0m
+

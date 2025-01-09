@@ -1,0 +1,114 @@
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=0, scoring_style=client-client
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,347 parameters, 0 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_0/valid/labels.cache... 20 images, 0 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_0/valid/labels.cache... 20 images, 0 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:01<00:01,  1.19s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.48it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.33it/s]
+                   all         20         20    0.00333          1      0.986      0.832
+Speed: 3.1ms preprocess, 46.5ms inference, 0.0ms loss, 17.9ms postprocess per image
+Results saved to [1mruns/detect/val[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=0, scoring_style=client-server
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,347 parameters, 0 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/4 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  25%|██▌       | 1/4 [00:01<00:03,  1.14s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 2/4 [00:01<00:01,  1.06it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  75%|███████▌  | 3/4 [00:02<00:00,  1.13it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:03<00:00,  1.25it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:03<00:00,  1.16it/s]
+                   all         61         55    0.00295      0.982      0.882       0.66
+Speed: 4.1ms preprocess, 42.2ms inference, 0.0ms loss, 6.2ms postprocess per image
+Results saved to [1mruns/detect/val3[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=0, scoring_style=server-client
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n_anki summary (fused): 238 layers, 2,582,347 parameters, 12,675 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_0/valid/labels.cache... 20 images, 0 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_0/valid/labels.cache... 20 images, 0 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:01<00:01,  1.19s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.59it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.41it/s]
+                   all         20         20    0.00333          1      0.981      0.844
+Speed: 3.9ms preprocess, 42.1ms inference, 0.0ms loss, 19.6ms postprocess per image
+Results saved to [1mruns/detect/val4[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=1, scoring_style=client-client
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,347 parameters, 0 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_1/valid/labels.cache... 20 images, 6 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_1/valid/labels.cache... 20 images, 6 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:01<00:01,  1.09s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.67it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.49it/s]
+                   all         20         14    0.00233          1      0.239     0.0916
+Speed: 4.7ms preprocess, 42.0ms inference, 0.0ms loss, 15.2ms postprocess per image
+Results saved to [1mruns/detect/val5[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=1, scoring_style=client-server
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,347 parameters, 0 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/valid/labels.cache... 61 images, 6 backgrounds, 0 corrupt: 100%|██████████| 61/61 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/4 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  25%|██▌       | 1/4 [00:01<00:03,  1.08s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 2/4 [00:01<00:01,  1.08it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  75%|███████▌  | 3/4 [00:02<00:00,  1.14it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:03<00:00,  1.26it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 4/4 [00:03<00:00,  1.18it/s]
+                   all         61         55    0.00295      0.982      0.472      0.293
+Speed: 4.4ms preprocess, 42.1ms inference, 0.0ms loss, 5.4ms postprocess per image
+Results saved to [1mruns/detect/val6[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=1, scoring_style=server-client
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n_anki summary (fused): 238 layers, 2,582,347 parameters, 12,675 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_1/valid/labels.cache... 20 images, 6 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_1/valid/labels.cache... 20 images, 6 backgrounds, 0 corrupt: 100%|██████████| 20/20 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|█████     | 1/2 [00:01<00:01,  1.01s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.90it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 2/2 [00:01<00:00,  1.67it/s]
+                   all         20         14    0.00233          1      0.414      0.343
+Speed: 4.0ms preprocess, 33.7ms inference, 0.0ms loss, 16.2ms postprocess per image
+Results saved to [1mruns/detect/val7[0m
+
+[Client Tests] Running with dataset=anki, strategy=FedAvg, client_num=2, scoring_style=client-client
+Ultralytics 8.3.58 🚀 Python-3.12.2 torch-2.5.1+cu124 CUDA:0 (NVIDIA RTX A1000 Laptop GPU, 3904MiB)
+YOLO11n summary (fused): 238 layers, 2,582,347 parameters, 0 gradients, 6.3 GFLOPs
+[34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_2/valid/labels.cache... 21 images, 0 backgrounds, 0 corrupt: 100%|██████████| 21/21 [00:00<?, ?it/s][34m[1mval: [0mScanning /home/localssk23/UltraFlwr/datasets/anki/partitions/client_2/valid/labels.cache... 21 images, 0 backgrounds, 0 corrupt: 100%|██████████| 21/21 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/localssk23/UltraFlwr/FedYOLO/test/test.py", line 86, in <module>
+    client_metrics_table = client_client_metrics(client_num, dataset_name, strategy_name)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/UltraFlwr/FedYOLO/test/test.py", line 40, in client_client_metrics
+    results = model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', verbose=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/engine/model.py", line 639, in val
+    validator(model=self.model)
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/engine/validator.py", line 180, in __call__
+    preds = model(batch["img"], augment=augment)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/autobackend.py", line 524, in forward
+    y = self.model(im, augment=augment, visualize=visualize, embed=embed)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/tasks.py", line 112, in forward
+    return self.predict(x, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/tasks.py", line 130, in predict
+    return self._predict_once(x, profile, visualize, embed)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/tasks.py", line 151, in _predict_once
+    x = m(x)  # run
+        ^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/modules/head.py", line 73, in forward
+    y = self._inference(x)
+        ^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/nn/modules/head.py", line 106, in _inference
+    self.anchors, self.strides = (x.transpose(0, 1) for x in make_anchors(x, self.stride, 0.5))
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/localssk23/backup/soumya/env/fedlytics/lib/python3.12/site-packages/ultralytics/utils/tal.py", line 344, in make_anchors
+    stride_tensor.append(torch.full((h * w, 1), stride, dtype=dtype, device=device))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
