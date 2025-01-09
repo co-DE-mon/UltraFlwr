@@ -17,7 +17,7 @@ Inspiration from actual need:
 
 5. Ultralytics allows the easy change of heads (during inference) for multiple tasks.
 6. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking)
-7. Create detection specifc aggregation stratigies. Our initial proposal: **FedHeadAvg**
+7. Create detection specifc aggregation stratigies. Our initial proposal: **FedHead** | **FedNeck** | **FedBackbone**
 
 ## Usage Guide with [Pills Data-set](https://universe.roboflow.com/roboflow-100/pills-sxdht)
 
@@ -47,7 +47,9 @@ Follow the style of roboflow downloads as mentioned in above steps.
 
 ### Training
 
-11. For federated training: `./run/run.sh`
+11. For One-off: `./scripts/run.sh`
+    - For Strating Multiple Runs: `./scripts/benchmark.sh`
+    - For normal YOLO training on entire server dataset: `python scripts/scripts/benchmark_yolo_normal_setting.py `
 
 ### Testing
 
@@ -62,8 +64,7 @@ Follow the style of roboflow downloads as mentioned in above steps.
 - [x] Inference Code for Local and Global data-sets using server model.
 - [x] Specialised version of FedHeadAvg for YOLO. FedHeadAvg where only the detection module is being updated.
 - [x] Propose new custom strategy in the flwr framework: Our proposal: FedHeadAvg
+- [x] Dynamically adapt entire code base to any number of clients and not rely on manually changing code base.
 
 ## To-Dos
-- [ ] Make better prints for server model inference.
-- [ ] Dynamically adapt entire code base to any number of clients and not rely on manually changing code base. [This needs discussion. Maybe not recommended in the longer run]
 - [ ] Develop scripts more sophisticated/adaptable data splits.

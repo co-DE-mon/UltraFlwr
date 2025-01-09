@@ -15,7 +15,8 @@ fi
 
 # List of datasets and strategies
 DATASET_NAME_LIST=("baseline")
-STRATEGY_LIST=("FedAvg" "FedMedian" "FedHeadAvg" "FedHeadMedian" "FedNeckAvg" "FedNeckMedian" "FedBackboneAvg" "FedBackboneMedian" "FedNeckHeadAvg" "FedNeckHeadMedian")
+# STRATEGY_LIST=("FedAvg" "FedHeadAvg" "FedHeadMedian" "FedNeckAvg" "FedNeckMedian" "FedBackboneAvg" "FedBackboneMedian" "FedNeckHeadAvg" "FedNeckHeadMedian")
+STRATEGY_LIST=("FedAvg" "FedHeadAvg")
 
 # Loop over each dataset and strategy
 for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do

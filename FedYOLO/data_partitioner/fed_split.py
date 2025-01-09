@@ -5,33 +5,24 @@ from prettytable import PrettyTable
 from FedYOLO.config import SPLITS_CONFIG
 
 def count_classes(label_files):
-    """
-    Count occurrences of each class in the label files.
-    Args:
-        label_files (list): List of paths to label files
-    Returns:
-        dict: Dictionary with class indices as keys and their counts as values
-    """
+    """Count occurrences of each class in the label files."""
     class_counts = {}
     
     for label_file in label_files:
         with open(label_file, 'r') as f:
             for line in f:
-                class_id = int(line.split()[0])  # Assume class_id is the first entry in the line
+                class_id = int(line.split()[0])
                 class_counts[class_id] = class_counts.get(class_id, 0) + 1
     
     return class_counts
 
 def create_class_distribution_table(global_counts, client_counts, split):
-    """Create a table comparing the global and client-specific class distributions for a given split."""
-    
+    """Create a table comparing global and client-specific class distributions."""
     classes = sorted(set(global_counts.get(split, {}).keys()).union(
         *[client_counts[client].get(split, {}).keys() for client in client_counts]
     ))
     
     table = PrettyTable()
-    
-    # Column headers
     table.field_names = ["Class", "Global Count"] + [f"{client} Count" for client in client_counts]
     
     for class_id in classes:
@@ -44,22 +35,24 @@ def create_class_distribution_table(global_counts, client_counts, split):
     
     return table
 
-def split_dataset(ratios, data_path):
+def split_dataset(config):
     """
-    Split dataset for federated learning
+    Split dataset for federated learning with n clients
     Args:
-        ratios (list): List of ratios for each client (must sum to 1)
-        data_path (str): Path to dataset directory containing data.yaml
+        config (dict): Configuration dictionary containing:
+            - ratio (list): List of ratios for each client
+            - dataset (str): Path to dataset directory
+            - num_clients (int): Number of clients
     """
-    num_clients = len(ratios)
+    ratios = config['ratio']
+    data_path = Path(config['dataset'])
+    num_clients = config['num_clients']
 
     # Validate inputs
     if not isinstance(ratios, list) or len(ratios) != num_clients:
         raise ValueError(f"Ratios list must have length {num_clients}")
     if abs(sum(ratios) - 1.0) > 1e-6:
         raise ValueError("Ratios must sum to 1.0")
-    
-    data_path = Path(data_path)
     
     # Read original yaml file
     with open(data_path / 'data.yaml', 'r') as f:
@@ -74,15 +67,9 @@ def split_dataset(ratios, data_path):
             global_class_counts[split][class_id] = count
             global_class_counts['total'][class_id] = global_class_counts['total'].get(class_id, 0) + count
 
-    # Check if the sum of individual splits matches the total count
-    for class_id, total_count in global_class_counts['total'].items():
-        split_sum = sum(global_class_counts[split].get(class_id, 0) for split in ['train', 'valid', 'test'])
-        if split_sum != total_count:
-            raise ValueError(f"Mismatch in global class counts for class {class_id}: expected {total_count}, but got {split_sum}")
-
     partition_path = data_path / 'partitions'
     
-    # Create client directories
+    # Create client directories and yaml files
     for client_id in range(num_clients):
         client_dir = partition_path / f'client_{client_id}'
         for split in ['train', 'valid', 'test']:
@@ -98,7 +85,8 @@ def split_dataset(ratios, data_path):
         with open(client_dir / 'data.yaml', 'w') as f:
             yaml.dump(client_yaml, f)
 
-    client_class_counts = {f'client_{i}': {'train': {}, 'valid': {}, 'test': {}} for i in range(num_clients)}
+    client_class_counts = {f'client_{i}': {'train': {}, 'valid': {}, 'test': {}} 
+                          for i in range(num_clients)}
 
     # Split and copy files
     for split in ['train', 'valid', 'test']:
@@ -136,5 +124,5 @@ def split_dataset(ratios, data_path):
         print(f"\nClass distribution for {split} split:")
         print(table)
 
-# Example usage:
-split_dataset(SPLITS_CONFIG['ratio'], SPLITS_CONFIG['dataset'])
+if __name__ == "__main__":
+    split_dataset(SPLITS_CONFIG)
