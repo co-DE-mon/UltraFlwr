@@ -1,3 +1,4 @@
+import time
 import torch
 from collections import OrderedDict
 from typing import Optional, Union
@@ -5,6 +6,7 @@ from typing import Optional, Union
 import flwr as fl
 from flwr.common import parameters_to_ndarrays, FitRes, Parameters, Scalar
 from flwr.server.client_proxy import ClientProxy
+from flwr.server.client_manager import ClientManager
 
 from ultralytics import YOLO
 
@@ -17,6 +19,15 @@ class BaseYOLOSaveStrategy(fl.server.strategy.FedAvg):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.model_path = f"{HOME}/FedYOLO/yolo_configs/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml"
+
+    def initialize_parameters(
+        self, client_manager: ClientManager
+    ) -> Optional[Parameters]:
+        """Initialize global model parameters."""
+        time.sleep(30) # wait for clients to initialise
+        initial_parameters = self.initial_parameters
+        self.initial_parameters = None  # Don't keep initial parameters in memory
+        return initial_parameters
 
     def get_section_parameters(self, state_dict: OrderedDict) -> tuple[dict, dict, dict]:
         """Get parameters for each section of the model."""
