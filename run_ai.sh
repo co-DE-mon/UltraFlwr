@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-JOB_NAME=try5bccd3clientsyli23
+JOB_NAME=test13bccd3clientsyli23
 runai submit $JOB_NAME \
 --backoff-limit 0 \
 --image "yang20180924/yli23ultraflwr:latest" \
@@ -9,7 +9,7 @@ runai submit $JOB_NAME \
 --cpu 1 \
 -v /home/yli23/UltraFlwr:/nfs/home/yang \
 --command \
--- bash /nfs/home/yang/scripts/benchmark.sh \
+-- bash /nfs/home/yang/FedYOLO/test/test.sh \
 --run-as-user
 # --command \
 # -- bash /nfs/home/yang/scripts/run.sh \
