@@ -18,9 +18,9 @@ def generate_client_config(num_clients, dataset_path):
     }
 
 # Base Configuration
-BASE = "/home/localssk23"  # YOUR PATH HERE
-HOME = f"{BASE}/UltraFlwr"
-DATASET_NAME = 'anki'
+BASE = "/nfs/home/yang"  # YOUR PATH HERE
+HOME = f"{BASE}"
+DATASET_NAME = 'BCCD'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 DATA_YAML = f"{DATASET_PATH}/data.yaml"
 NC = get_nc_from_yaml(DATA_YAML)
@@ -44,14 +44,14 @@ CLIENT_CONFIG = generate_client_config(NUM_CLIENTS, DATASET_PATH)
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 2,
+    'rounds': 20,
     'sample_fraction': 1.0,
     'min_num_clients': NUM_CLIENTS,
     'max_num_clients': NUM_CLIENTS * 2,  # Adjusted based on number of clients
-    'strategy': 'FedAvg',
+    'strategy': 'FedNeckHeadMedian',
 }
 
 YOLO_CONFIG = {
-    'batch_size': 2,
-    'epochs': 2,
+    'batch_size': 8,
+    'epochs': 20,
 }
