@@ -21,7 +21,8 @@ fi
 
 # List of datasets and strategies (similar to benchmark.sh)
 DATASET_NAME_LIST=("BCCD")
-STRATEGY_LIST=("FedAvg" "FedHeadAvg" "FedHeadMedian" "FedNeckAvg" "FedNeckMedian" "FedBackboneAvg" "FedBackboneMedian" "FedNeckHeadAvg" "FedNeckHeadMedian")
+# STRATEGY_LIST=("FedAvg" "FedHeadAvg" "FedHeadMedian" "FedNeckAvg" "FedNeckMedian" "FedBackboneAvg" "FedBackboneMedian" "FedNeckHeadAvg" "FedNeckHeadMedian")
+STRATEGY_LIST=("FedBackboneHeadAvg" "FedBackboneNeckAvg" "FedMedian" "FedBackboneHeadMedian" "FedBackboneNeckMedian")
 
 # Number of clients for client-dependent tests
 NUM_CLIENTS=3

@@ -121,6 +121,20 @@ class FedNeckHeadAvg(BaseYOLOSaveStrategy):
     update_neck = True
     update_head = True
 
+class FedBackboneNeckAvg(BaseYOLOSaveStrategy):
+    """Federated averaging of neck and head."""
+    update_backbone = True
+    update_neck = True
+    update_head = False
+
+class FedBackboneHeadAvg(BaseYOLOSaveStrategy):
+    """Federated averaging of neck and head."""
+    update_backbone = True
+    update_neck = False
+    update_head = True
+
+
+
 # FedMedian variations
 class FedMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     """Federated median of all model parameters."""
@@ -151,3 +165,15 @@ class FedNeckHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     update_backbone = False
     update_neck = True
     update_head = True
+
+class FedBackboneHeadMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
+    """Federated median of neck and head."""
+    update_backbone = True
+    update_neck = False
+    update_head = True
+
+class FedBackboneNeckMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
+    """Federated median of neck and head."""
+    update_backbone = True
+    update_neck = True
+    update_head = False

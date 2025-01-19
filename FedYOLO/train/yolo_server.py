@@ -13,7 +13,9 @@ from FedYOLO.train.strategies import (
     FedHeadAvg, FedHeadMedian,
     FedNeckAvg, FedNeckMedian,
     FedBackboneAvg, FedBackboneMedian,
-    FedNeckHeadAvg, FedNeckHeadMedian
+    FedNeckHeadAvg, FedNeckHeadMedian,
+    FedBackboneHeadAvg, FedBackboneHeadMedian,
+    FedBackboneNeckAvg, FedBackboneNeckMedian
 )
 
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
@@ -54,6 +56,8 @@ def main() -> None:
         "FedNeckAvg": FedNeckAvg,
         "FedBackboneAvg": FedBackboneAvg,
         "FedNeckHeadAvg": FedNeckHeadAvg,
+        "FedBackboneHeadAvg": FedBackboneHeadAvg,
+        "FedBackboneNeckAvg": FedBackboneNeckAvg,
         
         # FedMedian variations
         "FedMedian": FedMedian,
@@ -61,6 +65,8 @@ def main() -> None:
         "FedNeckMedian": FedNeckMedian,
         "FedBackboneMedian": FedBackboneMedian,
         "FedNeckHeadMedian": FedNeckHeadMedian,
+        "FedBackboneHeadMedian": FedBackboneHeadMedian,
+        "FedBackboneNeckMedian": FedBackboneNeckMedian
     }
 
     # Get the strategy class from config
