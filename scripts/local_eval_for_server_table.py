@@ -3,10 +3,9 @@ from ultralytics import YOLO
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--data", type=str, required=True, help="Path to data")
+parser.add_argument("--model", type=str, required=True, help="Path to model")
 args = parser.parse_args()
 
-model = YOLO()
+model = YOLO(args.model)
 
-results = model.train(data=args.data, batch=8, epochs=400)
-
-metrics = model.val(data=args.data)
+metrics = model.val(data=args.data, split="test")

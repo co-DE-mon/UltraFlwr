@@ -23,28 +23,28 @@ else
 fi
 
 # List of datasets and strategies
-DATASET_NAME_LIST=("BCCD")
-STRATEGY_LIST=("FedNeckHeadAvg" "FedBackboneHeadAvg" "FedBackboneNeckAvg" "FedMedian" "FedBackboneHeadMedian" "FedBackboneNeckMedian")
-# STRATEGY_LIST=(
-#     "FedAvg"
-#     "FedHeadAvg"
-#     "FedNeckAvg"
-#     "FedBackboneAvg"
-#     "FedNeckHeadAvg"
-#     "FedBackboneHeadAvg"
-#     "FedBackboneNeckAvg"
-#     "FedMedian"
-#     "FedHeadMedian"
-#     "FedNeckMedian"
-#     "FedBackboneMedian"
-#     "FedNeckHeadMedian"
-#     "FedBackboneHeadMedian"
-#     "FedBackboneNeckMedian"
-# )
+DATASET_NAME_LIST=("m2cai16")
+# STRATEGY_LIST=("FedNeckHeadAvg" "FedBackboneHeadAvg" "FedBackboneNeckAvg" "FedMedian" "FedBackboneHeadMedian" "FedBackboneNeckMedian")
+STRATEGY_LIST=(
+    "FedAvg"
+    "FedHeadAvg"
+    "FedNeckAvg"
+    "FedBackboneAvg"
+    "FedNeckHeadAvg"
+    "FedBackboneHeadAvg"
+    "FedBackboneNeckAvg"
+    "FedMedian"
+    "FedHeadMedian"
+    "FedNeckMedian"
+    "FedBackboneMedian"
+    "FedNeckHeadMedian"
+    "FedBackboneHeadMedian"
+    "FedBackboneNeckMedian"
+)
 # STRATEGY_LIST=("FedAvg" "FedHeadAvg")
 
 # Partition the data, uncomment if already partitioned
-# python3 /nfs/home/yang/FedYOLO/data_partitioner/fed_split.py >> logs/data_partition_log.txt 2>&1
+python3 /nfs/home/yang/FedYOLO/data_partitioner/fed_split.py >> logs/data_partition_log.txt 2>&1
 
 # Loop over each dataset and strategy
 for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do
