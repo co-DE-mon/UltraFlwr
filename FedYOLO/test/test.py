@@ -76,7 +76,7 @@ def client_client_metrics(client_number, dataset_name, strategy_name):
     weights_path = extract_results_path(logs_path)
     weights = f"{HOME}/{weights_path}/weights/best.pt"
     model = YOLO(weights)
-    results = model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', verbose=True)
+    results = model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', split="test", verbose=True)
     table = get_classwise_results_table(results)
     table.to_csv(f"{HOME}/results/client_{client_number}_results_{dataset_name}_{strategy_name}.csv", index=True, index_label='class')
 
@@ -86,7 +86,7 @@ def client_server_metrics(client_number, dataset_name, strategy_name):
     weights_path = extract_results_path(logs_path)
     weights = f"{HOME}/{weights_path}/weights/best.pt"
     model = YOLO(weights)
-    results = model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', verbose=True)
+    results = model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', split="test", split="test", verbose=True)
     table = get_classwise_results_table(results)
     table.to_csv(f"{HOME}/results/client_{client_number}_results_{dataset_name}_{strategy_name}_server.csv", index=True, index_label='class')
 
@@ -102,7 +102,7 @@ def server_client_metrics(client_number, dataset_name, strategy_name, num_rounds
         normal_model.model.load_state_dict({**normal_model.model.state_dict(), **detection_weights}, strict=False)   
         server_model = normal_model 
     
-    results = server_model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', verbose=True)
+    results = server_model.val(data=f'{HOME}/datasets/{dataset_name}/partitions/client_{client_number}/data.yaml', split="test", verbose=True)
     table = get_classwise_results_table(results)
     table.to_csv(f"{HOME}/results/server_client_{client_number}_results_{dataset_name}_{strategy_name}.csv", index=True, index_label='class')
 
@@ -117,7 +117,7 @@ def server_server_metrics(dataset_name, strategy_name, num_rounds):
         normal_model.model.load_state_dict({**normal_model.model.state_dict(), **detection_weights}, strict=False)   
         server_model = normal_model 
     
-    results = server_model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', verbose=True)
+    results = server_model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', split="test", verbose=True)
     table = get_classwise_results_table(results)
     table.to_csv(f"{HOME}/results/server_results_{dataset_name}_{strategy_name}.csv", index=True, index_label='class')
 
