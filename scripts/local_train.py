@@ -9,4 +9,4 @@ model = YOLO()
 
 results = model.train(data=args.data, batch=8, epochs=400)
 
-metrics = model.val(data=args.data)
+metrics = model.val(data=args.data, split="test")
