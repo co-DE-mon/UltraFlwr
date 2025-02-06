@@ -86,7 +86,7 @@ def client_server_metrics(client_number, dataset_name, strategy_name):
     weights_path = extract_results_path(logs_path)
     weights = f"{HOME}/{weights_path}/weights/best.pt"
     model = YOLO(weights)
-    results = model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', split="test", split="test", verbose=True)
+    results = model.val(data=f'{HOME}/datasets/{dataset_name}/data.yaml', split="test", verbose=True)
     table = get_classwise_results_table(results)
     table.to_csv(f"{HOME}/results/client_{client_number}_results_{dataset_name}_{strategy_name}_server.csv", index=True, index_label='class')
 
