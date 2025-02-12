@@ -60,10 +60,9 @@ Follow the style of roboflow downloads as mentioned in above steps.
 ## Baseline Tasks
 - [x] Proper Federated Training using off-the-shelf flower strategies.
 - [x] Inference Code for Local and Global data-sets using client models.
-- [x] Fast Prototyping through simple bash script launch and logging.
 - [x] Inference Code for Local and Global data-sets using server model.
-- [x] Specialised version of FedHeadAvg for YOLO. FedHeadAvg where only the detection module is being updated.
-- [x] Propose new custom strategy in the flwr framework: Our proposal: FedHeadAvg
+- [x] Fast Prototyping through simple bash script launch and logging.
+- [x] Propose new custom strategy in the flwr framework. Our proposal: YOLO-PA
 - [x] Dynamically adapt entire code base to any number of clients and not rely on manually changing code base.
 
 ## To-Dos
