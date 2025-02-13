@@ -51,6 +51,15 @@ Follow the style of roboflow downloads as mentioned in above steps.
 11. For One-off: `./scripts/run.sh`
     - For Strating Multiple Runs: `./scripts/benchmark.sh`
     - For normal YOLO training on entire server dataset: `python scripts/scripts/benchmark_yolo_normal_setting.py `
+   
+## Running on Nvidia DGX with run.ai and docker (need to add anonymization for submission)
+1. Download and partition the datasets as needed
+2. Navigate to the root of the project
+3. Build the docker image and push it to a registry with `bash create_docker_image.sh`
+4. Configure the `FedYOLO/config.py` as needed
+5. We ran our experiments with `scripts/benchmark.sh`, please create your script or modify it accordingly
+6. Update the `run_ai.sh` according to your needs
+7. Submit job with `bash run_ai.sh`
 
 ### Testing
 
