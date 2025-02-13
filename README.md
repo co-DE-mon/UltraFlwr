@@ -16,8 +16,9 @@ Inspiration from existing issues:
 Inspiration from actual need:
 
 5. Ultralytics allows the easy change of heads (during inference) for multiple tasks.
-6. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking)
-7. Create detection specifc aggregation stratigies. Our initial proposal: **FedHead** | **FedNeck** | **FedBackbone**
+6. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking).
+7. Allow flower strategies become smoothlessly integrated with Ultralytics' YOLO.
+8. Create detection specifc partial aggregation stratigies. Our initial proposal: **YOLO-PA**
 
 ## Usage Guide with [Pills Data-set](https://universe.roboflow.com/roboflow-100/pills-sxdht)
 
