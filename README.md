@@ -18,11 +18,8 @@ Inspiration from existing issues:
 Inspiration from actual need:
 
 1. Ultralytics allows the easy change of final heads (during inference) for multiple tasks.
-
 2. The Ultralytics style datasets are also well supported for easy off-the-shelf testing (and coco benchmarking).
-
 3. Allow flower strategies become smoothly integrated with Ultralytics' YOLO.
-
 4. Create detection specifc partial aggregation strategies, such as *YOLO-PA*.
 
 ## Benchmarks
@@ -34,13 +31,9 @@ Comprehensive benchmarks are included in [Benchmarks.md](Benchmarks.md).
 We provide usage guides using [pills dataset](https://universe.roboflow.com/roboflow-100/pills-sxdht) under three settings:
 
 1. Single machine simulation
-
    ​	a. Using Python venv
-
    ​	b. Using Docker
-
 2. Multiple edge computing devices
-
    ​	a. Using Docker
 
 ### Python venv
