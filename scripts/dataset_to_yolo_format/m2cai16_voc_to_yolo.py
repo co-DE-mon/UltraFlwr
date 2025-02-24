@@ -90,10 +90,10 @@ def copy_files(file_list, src_dir, dest_dir, file_extension):
 
 def main():
     # Define paths
-    xml_dir = '/home/maxboels/projects/datasets/m2cai16-tool-locations/m2cai16-tool-locations/Annotations'
+    xml_dir = '/home/user/projects/datasets/m2cai16-tool-locations/m2cai16-tool-locations/Annotations'
     output_dir = './yolo_annotations'  # Output directory for YOLO format annotations
     class_list_path = 'class_list.txt'  # Path to class list file
-    image_dir = '/home/maxboels/projects/datasets/m2cai16-tool-locations/m2cai16-tool-locations/JPEGImages'  # Update this to the path where images are stored
+    image_dir = '/home/user/projects/datasets/m2cai16-tool-locations/m2cai16-tool-locations/JPEGImages'  # Update this to the path where images are stored
     
     # Create output directories
     os.makedirs(output_dir, exist_ok=True)

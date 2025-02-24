@@ -4,7 +4,7 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $SCRIPTPATH
 
-cd ..
+cd ../../
 
 # Default values for arguments
 SERVER_SCRIPT="FedYOLO/train/yolo_server.py"

@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-docker_tag=yang20180924/${USER}ultraflwr:latest
+# navigate to directory
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+cd $SCRIPTPATH
+
+cd ../../
+
+docker_tag=<YOUR_DOCKERHUB_USERNAME>/<YOUR_IMAGE_TAG>
 
 
 docker build . -f Dockerfile \

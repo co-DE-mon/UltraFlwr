@@ -4,7 +4,7 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $SCRIPTPATH
 
-cd ..
+cd ../../
 
 # Read CLIENT_CONFIG from Python file
 CLIENT_CONFIG_FILE="./FedYOLO/config.py"
@@ -44,7 +44,7 @@ STRATEGY_LIST=(
 # STRATEGY_LIST=("FedAvg" "FedHeadAvg")
 
 # Partition the data, uncomment if already partitioned
-python3 /nfs/home/yang/FedYOLO/data_partitioner/fed_split.py >> logs/data_partition_log.txt 2>&1
+python3 /nfs/home/testuser/FedYOLO/data_partitioner/fed_split.py >> logs/data_partition_log.txt 2>&1
 
 # Loop over each dataset and strategy
 for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do
@@ -59,7 +59,7 @@ for DATASET_NAME in "${DATASET_NAME_LIST[@]}"; do
         sed -i "s/^\s*'strategy': .*/    'strategy': '${STRATEGY}',/" $CLIENT_CONFIG_FILE
         
         # Run the base bash file
-        bash "/nfs/home/yang/scripts/run.sh"
+        bash "/nfs/home/testuser/scripts/federated_train/run.sh"
 
         # newline
         echo ""
