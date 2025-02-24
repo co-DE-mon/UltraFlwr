@@ -23,7 +23,8 @@ from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 
 def fit_config(server_round: int) -> dict:
     """Return training configuration for each round."""
-    return {"epochs": YOLO_CONFIG["epochs"]}
+    return {"epochs": YOLO_CONFIG["epochs"], 
+            "server_round": server_round}
 
 
 def get_parameters(net: YOLO) -> list[np.ndarray]:
@@ -96,3 +97,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    
