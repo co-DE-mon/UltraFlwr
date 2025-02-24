@@ -179,6 +179,6 @@ def generate_data_yaml(
 
 
 if __name__ == "__main__":
-    data_home = "/home/maxboels/projects/datasets/endoscapes"  # Example path
+    data_home = "<PATH_TO_DATA>"  # Example path
     output_dir = "endoscapes_yolo_format"
     create_yolo_structure(data_home, output_dir)
