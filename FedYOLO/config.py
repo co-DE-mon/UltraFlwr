@@ -18,15 +18,15 @@ def generate_client_config(num_clients, dataset_path):
     }
 
 # Base Configuration
-BASE = "/nfs/home/yang"  # YOUR PATH HERE
-HOME = f"{BASE}"
-DATASET_NAME = 'BCCD'
+BASE = "/home/yang"  # YOUR PATH HERE
+HOME = f"{BASE}/UltraFlwr"
+DATASET_NAME = 'baseline'
 DATASET_PATH = f'{HOME}/datasets/{DATASET_NAME}'
 DATA_YAML = f"{DATASET_PATH}/data.yaml"
 NC = get_nc_from_yaml(DATA_YAML)
 
 # Number of clients can be easily modified here
-NUM_CLIENTS = 3  # Change this to desired number of clients
+NUM_CLIENTS = 2  # Change this to desired number of clients
 
 # Generate equal ratios for n clients
 CLIENT_RATIOS = [1/NUM_CLIENTS] * NUM_CLIENTS
@@ -44,14 +44,14 @@ CLIENT_CONFIG = generate_client_config(NUM_CLIENTS, DATASET_PATH)
 
 SERVER_CONFIG = {
     'server_address': "0.0.0.0:8080",
-    'rounds': 20,
+    'rounds': 2,
     'sample_fraction': 1.0,
     'min_num_clients': NUM_CLIENTS,
     'max_num_clients': NUM_CLIENTS * 2,  # Adjusted based on number of clients
-    'strategy': 'FedBackboneNeckMedian',
+    'strategy': 'FedMedian',
 }
 
 YOLO_CONFIG = {
     'batch_size': 8,
-    'epochs': 20,
+    'epochs': 1,
 }

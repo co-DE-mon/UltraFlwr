@@ -116,13 +116,6 @@ def main():
     fl.client.start_client(server_address=SERVER_CONFIG['server_address'], 
                            client=FlowerClient(args.cid, args.data_path, SPLITS_CONFIG['dataset_name'], SERVER_CONFIG['strategy']))
 
-
-if __name__ == "__main__":
-    main()
-    assert args.cid < NUM_CLIENTS
-    fl.client.start_client(server_address=SERVER_CONFIG['server_address'], client=FlowerClient(args.cid, args.data_path))
-
-
 if __name__ == "__main__":
     main()
     

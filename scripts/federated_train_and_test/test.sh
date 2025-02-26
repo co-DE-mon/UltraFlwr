@@ -17,8 +17,10 @@ else
     exit 1
 fi
 
-DATASET_NAME_LIST=($(python3 -c "from FedYOLO.config import SPLITS_CONFIG; print(SPLITS_CONFIG['dataset_name'])"))
-STRATEGY_LIST=($(python3 -c "from FedYOLO.config import SERVER_CONFIG; print(SERVER_CONFIG['strategy'])"))
+# List of datasets and strategies (similar to benchmark.sh)
+DATASET_NAME_LIST=("baseline")
+# STRATEGY_LIST=("FedAvg" "FedHeadAvg" "FedHeadMedian" "FedNeckAvg" "FedNeckMedian" "FedBackboneAvg" "FedBackboneMedian" "FedNeckHeadAvg" "FedNeckHeadMedian")
+STRATEGY_LIST=("FedMedian")
 
 # Number of clients for client-dependent tests
 NUM_CLIENTS=$(python3 -c "from FedYOLO.config import NUM_CLIENTS; print(NUM_CLIENTS)")

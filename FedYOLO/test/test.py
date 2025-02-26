@@ -20,6 +20,7 @@ client_num = args.client_num
 scoring_style = args.scoring_style
 num_rounds = SERVER_CONFIG['rounds']
 
+
 # def get_classwise_results_table(results):
 #     # Access precision, recall, and mAP values directly as arrays
 #     precision_values = results.box.p  # List/array of precision values for each class
@@ -35,12 +36,18 @@ num_rounds = SERVER_CONFIG['rounds']
 #         'mAP50-95': {results.names[idx]: ap50_95_values[idx] for idx in range(len(results.names))}
 #     }
 
+#     # Calculate mean results (overall "all" row)
+#     mp, mr, map50, map5095 = results.box.mean_results()
+#     class_wise_results['precision']['all'] = mp
+#     class_wise_results['recall']['all'] = mr
+#     class_wise_results['mAP50']['all'] = map50
+#     class_wise_results['mAP50-95']['all'] = map5095
+
 #     # Convert to DataFrame
 #     table = pd.DataFrame(class_wise_results)
 #     table.index.name = 'class'
 
 #     return table
-
 
 def get_classwise_results_table(results):
     # Access precision, recall, and mAP values directly as arrays
@@ -49,12 +56,15 @@ def get_classwise_results_table(results):
     ap50_values = results.box.ap50  # Array of AP50 values for each class
     ap50_95_values = results.box.ap  # Array of AP50-95 values for each class
 
+    # Ensure alignment between metrics and class names
+    num_classes = min(len(results.names), len(precision_values))
+
     # Construct class-wise results table
     class_wise_results = {
-        'precision': {results.names[idx]: precision_values[idx] for idx in range(len(results.names))},
-        'recall': {results.names[idx]: recall_values[idx] for idx in range(len(results.names))},
-        'mAP50': {results.names[idx]: ap50_values[idx] for idx in range(len(results.names))},
-        'mAP50-95': {results.names[idx]: ap50_95_values[idx] for idx in range(len(results.names))}
+        'precision': {results.names[idx]: precision_values[idx] for idx in range(num_classes)},
+        'recall': {results.names[idx]: recall_values[idx] for idx in range(num_classes)},
+        'mAP50': {results.names[idx]: ap50_values[idx] for idx in range(num_classes)},
+        'mAP50-95': {results.names[idx]: ap50_95_values[idx] for idx in range(num_classes)}
     }
 
     # Calculate mean results (overall "all" row)
@@ -69,6 +79,7 @@ def get_classwise_results_table(results):
     table.index.name = 'class'
 
     return table
+
 
 def client_client_metrics(client_number, dataset_name, strategy_name):
 

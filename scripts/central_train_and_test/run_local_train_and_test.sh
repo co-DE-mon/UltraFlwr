@@ -23,7 +23,7 @@ BASE_PATH="$(pwd)"
 
 echo "Base directory: $BASE_PATH"
 
-DATASET_NAME="m2cai16"
+DATASET_NAME="baseline"
 DATASET_PATHS=("${BASE_PATH}/datasets/${DATASET_NAME}/partitions/client_0/data.yaml"
           "${BASE_PATH}/datasets/${DATASET_NAME}/partitions/client_1/data.yaml"
           "${BASE_PATH}/datasets/${DATASET_NAME}/partitions/client_2/data.yaml"
