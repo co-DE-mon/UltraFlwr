@@ -27,7 +27,7 @@ Check `FedYOLO/config.py` to see the default configurations
 
 Follow the style of roboflow downloads as mentioned in above steps.
 
-![sample_dataset](/home/yang/UltraFlwr/assets/sample_dataset.png)
+![sample_dataset](../assets/sample_dataset.png)
 
 ### Training
 
