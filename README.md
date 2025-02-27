@@ -50,3 +50,6 @@ To collect tables (suitable for latex) for all scores across all global and loca
 
 ## To-Dos
 - [ ] Develop scripts more sophisticated/adaptable data splits.
+
+## Contribution Guideline
+We are working on formulating rules but feel free to raise issues and PRs.
