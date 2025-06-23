@@ -1,0 +1,161 @@
+[93mWARNING [0m:   DEPRECATED FEATURE: flwr.client.start_client() is deprecated.
+	Instead, use the `flower-supernode` CLI command to start a SuperNode as shown below:
+
+		$ flower-supernode --insecure --superlink='<IP>:<PORT>'
+
+	To view all available options, run:
+
+		$ flower-supernode --help
+
+	Using `start_client()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message 5083702f-98dd-48b0-9e13-a9348e03620a
+New https://pypi.org/project/ultralytics/8.3.158 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.3.48 🚀 Python-3.10.11 torch-2.5.1+cpu CPU (12th Gen Intel Core(TM) i7-1260P)
+[34m[1mengine\trainer: [0mtask=detect, mode=train, model=yolo11n.pt, data=C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\data.yaml, epochs=1, time=None, patience=100, batch=8, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=0, project=FedAvg_baseline_0, name=train11, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=True, opset=None, workspace=None, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, bgr=0.0, mosaic=1.0, mixup=0.0, copy_paste=0.0, copy_paste_mode=flip, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=FedAvg_baseline_0\train11
+Overriding model.yaml nc=80 with nc=2
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      6640  ultralytics.nn.modules.block.C3k2            [32, 64, 1, False, 0.25]      
+  3                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+  4                  -1  1     26080  ultralytics.nn.modules.block.C3k2            [64, 128, 1, False, 0.25]     
+  5                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+  6                  -1  1     87040  ultralytics.nn.modules.block.C3k2            [128, 128, 1, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    346112  ultralytics.nn.modules.block.C3k2            [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1    249728  ultralytics.nn.modules.block.C2PSA           [256, 256, 1]                 
+ 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 13                  -1  1    111296  ultralytics.nn.modules.block.C3k2            [384, 128, 1, False]          
+ 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 16                  -1  1     32096  ultralytics.nn.modules.block.C3k2            [256, 64, 1, False]           
+ 17                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 19                  -1  1     86720  ultralytics.nn.modules.block.C3k2            [192, 128, 1, False]          
+ 20                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 22                  -1  1    378880  ultralytics.nn.modules.block.C3k2            [384, 256, 1, True]           
+ 23        [16, 19, 22]  1    431062  ultralytics.nn.modules.head.Detect           [2, [64, 128, 256]]           
+YOLO11n summary: 319 layers, 2,590,230 parameters, 2,590,214 gradients, 6.4 GFLOPs
+
+Transferred 448/499 items from pretrained weights
+Freezing layer 'model.23.dfl.conv.weight'
+[34m[1mtrain: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\train\labels.cache... 54 images, 15 backgrounds, 0 corrupt: 100%|##########| 68/68 [00:00<?, ?it/s][34m[1mtrain: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\train\labels.cache... 54 images, 15 backgrounds, 0 corrupt: 100%|##########| 68/68 [00:00<?, ?it/s]
+[34m[1mval: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\valid\labels.cache... 16 images, 3 backgrounds, 0 corrupt: 100%|##########| 19/19 [00:00<?, ?it/s][34m[1mval: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\valid\labels.cache... 16 images, 3 backgrounds, 0 corrupt: 100%|##########| 19/19 [00:00<?, ?it/s]
+Plotting labels to FedAvg_baseline_0\train11\labels.jpg... 
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.001667, momentum=0.9) with parameter groups 81 weight(decay=0.0), 88 weight(decay=0.0005), 87 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 0 dataloader workers
+Logging results to [1mFedAvg_baseline_0\train11[0m
+Starting training for 1 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0%|          | 0/9 [00:00<?, ?it/s]        1/1         0G      1.827      3.984      1.576         23        640:   0%|          | 0/9 [00:05<?, ?it/s]        1/1         0G      1.827      3.984      1.576         23        640:  11%|#1        | 1/9 [00:05<00:42,  5.35s/it]        1/1         0G      1.927      4.135      1.526         24        640:  11%|#1        | 1/9 [00:09<00:42,  5.35s/it]        1/1         0G      1.927      4.135      1.526         24        640:  22%|##2       | 2/9 [00:09<00:33,  4.79s/it]        1/1         0G      1.705       4.07      1.392         20        640:  22%|##2       | 2/9 [00:14<00:33,  4.79s/it]        1/1         0G      1.705       4.07      1.392         20        640:  33%|###3      | 3/9 [00:14<00:28,  4.71s/it]        1/1         0G      1.757      4.319      1.429         11        640:  33%|###3      | 3/9 [00:18<00:28,  4.71s/it]        1/1         0G      1.757      4.319      1.429         11        640:  44%|####4     | 4/9 [00:18<00:23,  4.67s/it]        1/1         0G      1.721      4.239      1.431         18        640:  44%|####4     | 4/9 [00:23<00:23,  4.67s/it]        1/1         0G      1.721      4.239      1.431         18        640:  56%|#####5    | 5/9 [00:23<00:18,  4.52s/it]        1/1         0G      1.657      4.173      1.424         16        640:  56%|#####5    | 5/9 [00:27<00:18,  4.52s/it]        1/1         0G      1.657      4.173      1.424         16        640:  67%|######6   | 6/9 [00:27<00:13,  4.47s/it]        1/1         0G      1.568      4.088      1.389         18        640:  67%|######6   | 6/9 [00:31<00:13,  4.47s/it]        1/1         0G      1.568      4.088      1.389         18        640:  78%|#######7  | 7/9 [00:31<00:08,  4.40s/it]        1/1         0G      1.572      4.102      1.415         17        640:  78%|#######7  | 7/9 [00:36<00:08,  4.40s/it]        1/1         0G      1.572      4.102      1.415         17        640:  89%|########8 | 8/9 [00:36<00:04,  4.39s/it]        1/1         0G      1.505      4.057       1.38          8        640:  89%|########8 | 8/9 [00:38<00:04,  4.39s/it]        1/1         0G      1.505      4.057       1.38          8        640: 100%|##########| 9/9 [00:38<00:00,  3.77s/it]        1/1         0G      1.505      4.057       1.38          8        640: 100%|##########| 9/9 [00:38<00:00,  4.29s/it]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|#####     | 1/2 [00:03<00:03,  3.65s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:04<00:00,  1.97s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:04<00:00,  2.22s/it]
+C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\ultravenv\lib\site-packages\ultralytics\utils\metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         19         35     0.0036      0.382     0.0549     0.0252
+
+1 epochs completed in 0.013 hours.
+Optimizer stripped from FedAvg_baseline_0\train11\weights\last.pt, 5.5MB
+Optimizer stripped from FedAvg_baseline_0\train11\weights\best.pt, 5.5MB
+
+Validating FedAvg_baseline_0\train11\weights\best.pt...
+Ultralytics 8.3.48 🚀 Python-3.10.11 torch-2.5.1+cpu CPU (12th Gen Intel Core(TM) i7-1260P)
+YOLO11n summary (fused): 238 layers, 2,582,542 parameters, 0 gradients, 6.3 GFLOPs
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|#####     | 1/2 [00:03<00:03,  3.24s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:03<00:00,  1.75s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:03<00:00,  1.98s/it]
+C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\ultravenv\lib\site-packages\ultralytics\utils\metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         19         35    0.00363      0.382     0.0549     0.0252
+               cheetah         16         26    0.00696      0.654       0.11     0.0504
+                 human          3          9   0.000307      0.111    0.00018    1.8e-05
+Speed: 4.4ms preprocess, 162.0ms inference, 0.0ms loss, 29.4ms postprocess per image
+Results saved to [1mFedAvg_baseline_0\train11[0m
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message 6f43c105-941f-4595-803d-eded6a334255
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: train message a5bba102-302c-48c1-8cbb-01ed6bf23bac
+C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr/FedAvg_baseline_0\train11/weights/best.pt
+New https://pypi.org/project/ultralytics/8.3.158 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.3.48 🚀 Python-3.10.11 torch-2.5.1+cpu CPU (12th Gen Intel Core(TM) i7-1260P)
+[34m[1mengine\trainer: [0mtask=detect, mode=train, model=C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr/FedAvg_baseline_0\train11/weights/best.pt, data=C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\data.yaml, epochs=1, time=None, patience=100, batch=8, imgsz=640, save=True, save_period=-1, cache=False, device=None, workers=0, project=FedAvg_baseline_0, name=train12, exist_ok=False, pretrained=True, optimizer=auto, verbose=True, seed=0, deterministic=True, single_cls=False, rect=False, cos_lr=False, close_mosaic=10, resume=False, amp=True, fraction=1.0, profile=False, freeze=None, multi_scale=False, overlap_mask=True, mask_ratio=4, dropout=0.0, val=True, split=val, save_json=False, save_hybrid=False, conf=None, iou=0.7, max_det=300, half=False, dnn=False, plots=True, source=None, vid_stride=1, stream_buffer=False, visualize=False, augment=False, agnostic_nms=False, classes=None, retina_masks=False, embed=None, show=False, save_frames=False, save_txt=False, save_conf=False, save_crop=False, show_labels=True, show_conf=True, show_boxes=True, line_width=None, format=torchscript, keras=False, optimize=False, int8=False, dynamic=False, simplify=True, opset=None, workspace=None, nms=False, lr0=0.01, lrf=0.01, momentum=0.937, weight_decay=0.0005, warmup_epochs=3.0, warmup_momentum=0.8, warmup_bias_lr=0.1, box=7.5, cls=0.5, dfl=1.5, pose=12.0, kobj=1.0, nbs=64, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, degrees=0.0, translate=0.1, scale=0.5, shear=0.0, perspective=0.0, flipud=0.0, fliplr=0.5, bgr=0.0, mosaic=1.0, mixup=0.0, copy_paste=0.0, copy_paste_mode=flip, auto_augment=randaugment, erasing=0.4, crop_fraction=1.0, cfg=None, tracker=botsort.yaml, save_dir=FedAvg_baseline_0\train12
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      6640  ultralytics.nn.modules.block.C3k2            [32, 64, 1, False, 0.25]      
+  3                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+  4                  -1  1     26080  ultralytics.nn.modules.block.C3k2            [64, 128, 1, False, 0.25]     
+  5                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+  6                  -1  1     87040  ultralytics.nn.modules.block.C3k2            [128, 128, 1, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    346112  ultralytics.nn.modules.block.C3k2            [256, 256, 1, True]           
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1    249728  ultralytics.nn.modules.block.C2PSA           [256, 256, 1]                 
+ 11                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 12             [-1, 6]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 13                  -1  1    111296  ultralytics.nn.modules.block.C3k2            [384, 128, 1, False]          
+ 14                  -1  1         0  torch.nn.modules.upsampling.Upsample         [None, 2, 'nearest']          
+ 15             [-1, 4]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 16                  -1  1     32096  ultralytics.nn.modules.block.C3k2            [256, 64, 1, False]           
+ 17                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 18            [-1, 13]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 19                  -1  1     86720  ultralytics.nn.modules.block.C3k2            [192, 128, 1, False]          
+ 20                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 21            [-1, 10]  1         0  ultralytics.nn.modules.conv.Concat           [1]                           
+ 22                  -1  1    378880  ultralytics.nn.modules.block.C3k2            [384, 256, 1, True]           
+ 23        [16, 19, 22]  1    431062  ultralytics.nn.modules.head.Detect           [2, [64, 128, 256]]           
+YOLO11n summary: 319 layers, 2,590,230 parameters, 2,590,214 gradients, 6.4 GFLOPs
+
+Transferred 499/499 items from pretrained weights
+Freezing layer 'model.23.dfl.conv.weight'
+[34m[1mtrain: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\train\labels.cache... 54 images, 15 backgrounds, 0 corrupt: 100%|##########| 68/68 [00:00<?, ?it/s][34m[1mtrain: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\train\labels.cache... 54 images, 15 backgrounds, 0 corrupt: 100%|##########| 68/68 [00:00<?, ?it/s]
+[34m[1mval: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\valid\labels.cache... 16 images, 3 backgrounds, 0 corrupt: 100%|##########| 19/19 [00:00<?, ?it/s][34m[1mval: [0mScanning C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\datasets\baseline\partitions\client_0\valid\labels.cache... 16 images, 3 backgrounds, 0 corrupt: 100%|##########| 19/19 [00:00<?, ?it/s]
+Plotting labels to FedAvg_baseline_0\train12\labels.jpg... 
+[34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
+[34m[1moptimizer:[0m AdamW(lr=0.001667, momentum=0.9) with parameter groups 81 weight(decay=0.0), 88 weight(decay=0.0005), 87 bias(decay=0.0)
+Image sizes 640 train, 640 val
+Using 0 dataloader workers
+Logging results to [1mFedAvg_baseline_0\train12[0m
+Starting training for 1 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0%|          | 0/9 [00:00<?, ?it/s]        1/1         0G      1.253      3.705      1.201         23        640:   0%|          | 0/9 [00:05<?, ?it/s]        1/1         0G      1.253      3.705      1.201         23        640:  11%|#1        | 1/9 [00:05<00:40,  5.00s/it]        1/1         0G      1.282      3.831      1.131         24        640:  11%|#1        | 1/9 [00:09<00:40,  5.00s/it]        1/1         0G      1.282      3.831      1.131         24        640:  22%|##2       | 2/9 [00:09<00:32,  4.65s/it]        1/1         0G      1.175      3.788      1.073         20        640:  22%|##2       | 2/9 [00:14<00:32,  4.65s/it]        1/1         0G      1.175      3.788      1.073         20        640:  33%|###3      | 3/9 [00:14<00:27,  4.64s/it]        1/1         0G      1.211      4.014      1.102         11        640:  33%|###3      | 3/9 [00:18<00:27,  4.64s/it]        1/1         0G      1.211      4.014      1.102         11        640:  44%|####4     | 4/9 [00:18<00:22,  4.59s/it]        1/1         0G      1.195      3.957      1.108         18        640:  44%|####4     | 4/9 [00:23<00:22,  4.59s/it]        1/1         0G      1.195      3.957      1.108         18        640:  56%|#####5    | 5/9 [00:23<00:18,  4.55s/it]        1/1         0G        1.2       3.89      1.135         16        640:  56%|#####5    | 5/9 [00:27<00:18,  4.55s/it]        1/1         0G        1.2       3.89      1.135         16        640:  67%|######6   | 6/9 [00:27<00:13,  4.47s/it]        1/1         0G      1.161      3.824      1.132         18        640:  67%|######6   | 6/9 [00:32<00:13,  4.47s/it]        1/1         0G      1.161      3.824      1.132         18        640:  78%|#######7  | 7/9 [00:32<00:09,  4.63s/it]        1/1         0G      1.176      3.825      1.149         17        640:  78%|#######7  | 7/9 [00:38<00:09,  4.63s/it]        1/1         0G      1.176      3.825      1.149         17        640:  89%|########8 | 8/9 [00:38<00:04,  4.99s/it]        1/1         0G      1.135      3.799      1.134          8        640:  89%|########8 | 8/9 [00:40<00:04,  4.99s/it]        1/1         0G      1.135      3.799      1.134          8        640: 100%|##########| 9/9 [00:40<00:00,  4.18s/it]        1/1         0G      1.135      3.799      1.134          8        640: 100%|##########| 9/9 [00:40<00:00,  4.50s/it]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|#####     | 1/2 [00:04<00:04,  4.18s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:05<00:00,  2.23s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:05<00:00,  2.52s/it]
+C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\ultravenv\lib\site-packages\ultralytics\utils\metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         19         35    0.00417      0.442      0.123     0.0693
+
+1 epochs completed in 0.014 hours.
+Optimizer stripped from FedAvg_baseline_0\train12\weights\last.pt, 5.5MB
+Optimizer stripped from FedAvg_baseline_0\train12\weights\best.pt, 5.5MB
+
+Validating FedAvg_baseline_0\train12\weights\best.pt...
+Ultralytics 8.3.48 🚀 Python-3.10.11 torch-2.5.1+cpu CPU (12th Gen Intel Core(TM) i7-1260P)
+YOLO11n summary (fused): 238 layers, 2,582,542 parameters, 0 gradients, 6.3 GFLOPs
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/2 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  50%|#####     | 1/2 [00:03<00:03,  3.38s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:04<00:00,  1.80s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|##########| 2/2 [00:04<00:00,  2.03s/it]
+C:\Users\Pranav Rustagi\Desktop\Project\UltraFlwr\ultravenv\lib\site-packages\ultralytics\utils\metrics.py:525: DeprecationWarning: `trapz` is deprecated. Use `trapezoid` instead, or one of the numerical integration functions in `scipy.integrate`.
+  ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
+                   all         19         35    0.00448      0.498      0.123     0.0705
+               cheetah         16         26    0.00863      0.885      0.245      0.141
+                 human          3          9   0.000329      0.111   0.000185   3.69e-05
+Speed: 5.0ms preprocess, 151.6ms inference, 0.0ms loss, 41.2ms postprocess per image
+Results saved to [1mFedAvg_baseline_0\train12[0m
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: evaluate message b6d160c6-e569-4e17-a710-f7c173929135
+[92mINFO [0m:      Sent reply
+[92mINFO [0m:      
+[92mINFO [0m:      Received: reconnect message 757f07a4-07db-4296-b41b-cbfa460747eb
+[92mINFO [0m:      Disconnect and shut down
