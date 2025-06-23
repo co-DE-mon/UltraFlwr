@@ -1,4 +1,5 @@
 import argparse
+from pathlib import Path
 import warnings
 from collections import OrderedDict
 import torch
@@ -178,9 +179,18 @@ class FlowerClient(fl.client.NumPyClient):
 def main():
 
     args = parser.parse_args()
+
+    args.data_path = str(Path(args.data_path))
     assert args.cid < NUM_CLIENTS
-    fl.client.start_client(server_address=SERVER_CONFIG['server_address'], 
-                           client=FlowerClient(args.cid, args.data_path, SPLITS_CONFIG['dataset_name'], SERVER_CONFIG['strategy']))
+    fl.client.start_client(
+        server_address=SERVER_CONFIG['server_address'],
+        client=FlowerClient(
+            args.cid,
+            args.data_path,
+            SPLITS_CONFIG['dataset_name'],
+            SERVER_CONFIG['strategy']
+        ).to_client()
+    )
 
 if __name__ == "__main__":
     main()
