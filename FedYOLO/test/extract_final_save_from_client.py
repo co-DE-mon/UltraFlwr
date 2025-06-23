@@ -11,8 +11,6 @@ def extract_results_path(file_path):
             match = re.search(r"Results saved to (.+)", line)
             if match:
                 # Remove ANSI escape sequences
-                absolute_path = re.sub(r'\x1b\[[0-9;]*[a-zA-Z]', '', match.group(1)).strip()
-                # Convert absolute path to relative path if needed
-                relative_path = os.path.relpath(absolute_path, start=os.getcwd())
-                return relative_path
+                save_path = re.sub(r'\x1b\[[0-9;]*[a-zA-Z]', '', match.group(1)).strip()
+                return save_path  # Return as found in the log
     return None
