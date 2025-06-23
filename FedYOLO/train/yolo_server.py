@@ -85,6 +85,7 @@ def main() -> None:
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
         on_fit_config_fn=fit_config,
         initial_parameters=initial_parameters,
+        # fit_metrics_aggregation_fn=aggregate_fit_metrics,
     )
 
     # Start Flower server
