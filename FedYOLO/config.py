@@ -57,7 +57,8 @@ SERVER_CONFIG = {
     'sample_fraction': 1.0,
     'min_num_clients': NUM_CLIENTS,
     'max_num_clients': NUM_CLIENTS * 2,  # Adjusted based on number of clients
-    'strategy': 'FedAvg',
+    'proximal_mu': 0.1,  # Proximal term weight
+    'strategy': 'FedProx',
 }
 
 YOLO_CONFIG = {

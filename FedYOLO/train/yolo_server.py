@@ -15,7 +15,11 @@ from FedYOLO.train.strategies import (
     FedBackboneAvg, FedBackboneMedian,
     FedNeckHeadAvg, FedNeckHeadMedian,
     FedBackboneHeadAvg, FedBackboneHeadMedian,
-    FedBackboneNeckAvg, FedBackboneNeckMedian
+    FedBackboneNeckAvg, FedBackboneNeckMedian,
+    FedProx, FedHeadProx,
+    FedNeckProx, FedNeckHeadProx,
+    FedBackboneProx, FedBackboneHeadProx,
+    FedBackboneNeckProx
 )
 
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
@@ -67,7 +71,16 @@ def main() -> None:
         "FedBackboneMedian": FedBackboneMedian,
         "FedNeckHeadMedian": FedNeckHeadMedian,
         "FedBackboneHeadMedian": FedBackboneHeadMedian,
-        "FedBackboneNeckMedian": FedBackboneNeckMedian
+        "FedBackboneNeckMedian": FedBackboneNeckMedian,
+
+        # FedProx variations
+        "FedProx": FedProx,
+        "FedHeadProx": FedHeadProx,
+        "FedNeckProx": FedNeckProx,
+        "FedBackboneProx": FedBackboneProx,
+        "FedNeckHeadProx": FedNeckHeadProx,
+        "FedBackboneHeadProx": FedBackboneHeadProx,
+        "FedBackboneNeckProx": FedBackboneNeckProx
     }
 
     # Get the strategy class from config
@@ -85,8 +98,8 @@ def main() -> None:
         min_fit_clients=SERVER_CONFIG["min_num_clients"],
         on_fit_config_fn=fit_config,
         initial_parameters=initial_parameters,
-        # fit_metrics_aggregation_fn=aggregate_fit_metrics,
-    )
+        proximal_mu=SERVER_CONFIG["proximal_mu"],
+        )
 
     # Start Flower server
     fl.server.start_server(

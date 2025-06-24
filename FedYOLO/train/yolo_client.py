@@ -86,15 +86,18 @@ class FlowerClient(fl.client.NumPyClient):
         # Define strategy groups (same as in set_parameters) - Corrected lists
         backbone_strategies = [
             'FedAvg', 'FedBackboneAvg', 'FedBackboneHeadAvg', 'FedBackboneNeckAvg',
-            'FedMedian', 'FedBackboneMedian', 'FedBackboneHeadMedian', 'FedBackboneNeckMedian'
+            'FedMedian', 'FedBackboneMedian', 'FedBackboneHeadMedian', 'FedBackboneNeckMedian',
+            'FedProx', 'FedBackboneProx', 'FedBackboneHeadProx', 'FedBackboneNeckProx'
         ]
         neck_strategies = [
             'FedAvg', 'FedNeckAvg', 'FedNeckHeadAvg', 'FedBackboneNeckAvg',
-            'FedMedian', 'FedNeckMedian', 'FedNeckHeadMedian', 'FedBackboneNeckMedian'
+            'FedMedian', 'FedNeckMedian', 'FedNeckHeadMedian', 'FedBackboneNeckMedian',
+            'FedProx', 'FedNeckProx', 'FedNeckHeadProx', 'FedBackboneNeckProx'
         ]
         head_strategies = [
             'FedAvg', 'FedHeadAvg', 'FedNeckHeadAvg', 'FedBackboneHeadAvg',
-            'FedMedian', 'FedHeadMedian', 'FedNeckHeadMedian', 'FedBackboneHeadMedian'
+            'FedMedian', 'FedHeadMedian', 'FedNeckHeadMedian', 'FedBackboneHeadMedian',
+            'FedProx', 'FedHeadProx', 'FedNeckHeadProx', 'FedBackboneHeadProx'
         ]
 
         # Determine which parts to send based on strategy
@@ -119,15 +122,18 @@ class FlowerClient(fl.client.NumPyClient):
         # Define strategy groups
         backbone_strategies = [
             'FedAvg', 'FedBackboneAvg', 'FedBackboneHeadAvg', 'FedBackboneNeckAvg',
-            'FedMedian', 'FedBackboneMedian', 'FedBackboneHeadMedian', 'FedBackboneNeckMedian'
+            'FedMedian', 'FedBackboneMedian', 'FedBackboneHeadMedian', 'FedBackboneNeckMedian',
+            'FedProx', 'FedBackboneProx', 'FedBackboneHeadProx', 'FedBackboneNeckProx'
         ]
         neck_strategies = [
             'FedAvg', 'FedNeckAvg', 'FedNeckHeadAvg', 'FedBackboneNeckAvg',
-            'FedMedian', 'FedNeckMedian', 'FedNeckHeadMedian', 'FedBackboneNeckMedian'
+            'FedMedian', 'FedNeckMedian', 'FedNeckHeadMedian', 'FedBackboneNeckMedian',
+            'FedProx', 'FedNeckProx', 'FedNeckHeadProx', 'FedBackboneNeckProx'
         ]
         head_strategies = [
             'FedAvg', 'FedHeadAvg', 'FedNeckHeadAvg', 'FedBackboneHeadAvg',
-            'FedMedian', 'FedHeadMedian', 'FedNeckHeadMedian', 'FedBackboneHeadMedian'
+            'FedMedian', 'FedHeadMedian', 'FedNeckHeadMedian', 'FedBackboneHeadMedian',
+            'FedProx', 'FedHeadProx', 'FedNeckHeadProx', 'FedBackboneHeadProx'
         ]
         
         # Determine which parts to update

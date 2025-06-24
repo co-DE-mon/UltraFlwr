@@ -2,12 +2,15 @@
 datasets/*
 !datasets/baseline
 
+# Ignore chache files
+FedYOLO/__pycache__/*
+
 # Ignore everything in runs, logs, weights and results folder
 runs/*
-logs/*
+# logs/*
 weights/*
 results/*
-!logs/.gitkeep
+# !logs/.gitkeep
 !weights/.gitkeep
 !results/.gitkeep
 

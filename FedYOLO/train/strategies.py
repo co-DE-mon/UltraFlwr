@@ -202,3 +202,48 @@ class FedBackboneNeckMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
     update_backbone = True
     update_neck = True
     update_head = False
+
+    
+
+# FedProx variations
+class FedProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of all model parameters."""
+    update_backbone = True
+    update_neck = True
+    update_head = True
+
+class FedHeadProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of detection head only."""
+    update_backbone = False
+    update_neck = False
+    update_head = True
+
+class FedNeckProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of neck (SPPF and FPN) only."""
+    update_backbone = False
+    update_neck = True
+    update_head = False
+
+class FedBackboneProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of backbone only."""
+    update_backbone = True
+    update_neck = False
+    update_head = False
+
+class FedNeckHeadProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of neck and head."""
+    update_backbone = False
+    update_neck = True
+    update_head = True
+
+class FedBackboneHeadProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of neck and head."""
+    update_backbone = True
+    update_neck = False
+    update_head = True
+
+class FedBackboneNeckProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
+    """Federated proximal of neck and head."""
+    update_backbone = True
+    update_neck = True
+    update_head = False    
