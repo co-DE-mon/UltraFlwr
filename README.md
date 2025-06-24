@@ -29,6 +29,10 @@ We provide usage guides using [pills dataset](https://universe.roboflow.com/robo
 1. [Single machine simulation using Python virtual environment](docs/local_venv.md)
 2. [Single machine simulation using Docker](docs/local_docker.md)
 
+A deployment demo video is shown below, click to watch it!
+
+[![Watch the video](https://img.youtube.com/vi/raHjqcyYcBs/0.jpg)](https://www.youtube.com/watch?v=raHjqcyYcBs)
+
 ## Usage (Testing)
 
 For testing and getting client-wise global and local scores: `./FedYOLO/test/test.sh`
