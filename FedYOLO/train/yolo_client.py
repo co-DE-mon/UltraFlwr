@@ -7,6 +7,8 @@ import flwr as fl
 from ultralytics import YOLO
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 from FedYOLO.test.extract_final_save_from_client import extract_results_path
+from ultralytics.utils.loss import ProximalDetectionLoss
+from FedYOLO.train.client_utils import parameters_to_state_dict
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -163,7 +165,20 @@ class FlowerClient(fl.client.NumPyClient):
             updated_weights[k] = torch.tensor(v)
 
         updated_state_dict = OrderedDict(updated_weights)
-        self.net.model.load_state_dict(updated_state_dict, strict=False)
+
+        #     # Set global parameters for ProximalLoss if relevant
+        # if "Prox" in self.strategy_name:
+        #     if not hasattr(self, "proximal_loss"):
+        #         self.proximal_loss = ProximalDetectionLoss(
+        #             model=self.net.model,
+        #             global_params=updated_state_dict,
+        #             proximal_mu=YOLO_CONFIG.get("proximal_mu", 0.1)  # fallback if not in config
+        #         )
+        #     else:
+        #         self.proximal_loss.update_global_params(updated_state_dict)
+        #     self.net.model.loss = self.proximal_loss
+
+        #     self.net.model.load_state_dict(updated_state_dict, strict=False)
 
     def fit(self, parameters, config):
         if config["server_round"] != 1:
