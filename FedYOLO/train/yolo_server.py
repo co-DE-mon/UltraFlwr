@@ -27,8 +27,9 @@ from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 
 def fit_config(server_round: int) -> dict:
     """Return training configuration for each round."""
-    return {"epochs": YOLO_CONFIG["epochs"], 
-            "server_round": server_round}
+    return {"epochs": YOLO_CONFIG["epochs"],
+            "server_round": server_round,
+            "proximal_mu": SERVER_CONFIG["proximal_mu"]}
 
 
 def get_parameters(net: YOLO) -> list[np.ndarray]:
@@ -100,6 +101,8 @@ def main() -> None:
         initial_parameters=initial_parameters,
         proximal_mu=SERVER_CONFIG["proximal_mu"],
         )
+    print(f"[Server] Using proximal_mu = {SERVER_CONFIG['proximal_mu']}")
+
 
     # Start Flower server
     fl.server.start_server(

@@ -11,13 +11,15 @@ from flwr.server.client_manager import ClientManager
 from ultralytics import YOLO
 
 from FedYOLO.train.server_utils import save_model_checkpoint
-from FedYOLO.config import SPLITS_CONFIG, HOME
+from FedYOLO.config import SPLITS_CONFIG, HOME, SERVER_CONFIG
 
 class BaseYOLOSaveStrategy(fl.server.strategy.FedAvg):
     """Base class for custom FL strategies to save YOLO model checkpoints."""
-
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):  
+        """Initialize the strategy with proximal_mu and model path."""
+        proximal_mu = kwargs.pop('proximal_mu', SERVER_CONFIG.get('proximal_mu', 0.01))
         super().__init__(*args, **kwargs)
+        self.proximal_mu = proximal_mu
         self.model_path = f"{HOME}/FedYOLO/yolo_configs/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml"
 
     def initialize_parameters(
@@ -208,6 +210,9 @@ class FedBackboneNeckMedian(BaseYOLOSaveStrategy, fl.server.strategy.FedMedian):
 # FedProx variations
 class FedProx(BaseYOLOSaveStrategy, fl.server.strategy.FedProx):
     """Federated proximal of all model parameters."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(f"[STRATEGY] FedProx initialized with proximal_mu: {self.proximal_mu}")
     update_backbone = True
     update_neck = True
     update_head = True

@@ -21,9 +21,9 @@ def generate_client_config(num_clients, dataset_path):
 
 # Base Configuration
 if 'microsoft' in platform.uname().release.lower():  # WSL/Bash
-    BASE = "/mnt/c/Users/Pranav Rustagi/Desktop/Project"
+    BASE = "/mnt/c/Users/PC/Desktop/Project"
 else:
-    BASE = r"C:\Users\Pranav Rustagi\Desktop\Project"
+    BASE = r"C:\Users\PC\Desktop\Project"
 
 HOME = os.path.join(BASE, "UltraFlwr")
 DATASET_NAME = 'baseline'
@@ -54,12 +54,13 @@ CLIENT_CONFIG = generate_client_config(NUM_CLIENTS, DATASET_PATH)
 SERVER_CONFIG = {
     'server_address': "127.0.0.1:8080",
     'rounds': 2,
-    'sample_fraction': 1.0,
+    'sample_fraction': 0.1,
     'min_num_clients': NUM_CLIENTS,
     'max_num_clients': NUM_CLIENTS * 2,  # Adjusted based on number of clients
-    'proximal_mu': 0.1,  # Proximal term weight
+    'proximal_mu': 1,  # Proximal term weight
     'strategy': 'FedProx',
 }
+print(f"PROXIMAL_MU={SERVER_CONFIG['proximal_mu']}")
 
 YOLO_CONFIG = {
     'batch_size': 8,

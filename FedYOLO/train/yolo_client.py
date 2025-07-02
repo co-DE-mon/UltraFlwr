@@ -18,9 +18,16 @@ parser.add_argument("--data_path", type=str, default="./client_0_assets/dummy_da
 
 NUM_CLIENTS = SERVER_CONFIG['max_num_clients']
 
-def train(net, data_path, cid, strategy):
+def train(net, data_path, cid, strategy, proximal_mu=None):
+    if proximal_mu is not None and "Prox" in strategy:
+        # The proximal loss should already be set in the fit method
+        # Just verify it's there
+        if hasattr(net.model, 'loss') and isinstance(net.model.loss, ProximalDetectionLoss):
+            print(f"[TRAIN] Using ProximalDetectionLoss with mu={net.model.loss.proximal_mu}")
+        else:
+            print(f"[TRAIN] Warning: ProximalDetectionLoss not properly set!")
+    
     net.train(data=data_path, epochs=YOLO_CONFIG['epochs'], workers=0, seed=cid, batch=YOLO_CONFIG['batch_size'], project=strategy)
-
 # Define get_section_parameters as a standalone function
 from typing import Tuple
 def get_section_parameters(state_dict: OrderedDict) -> Tuple[dict, dict, dict]:
@@ -78,6 +85,7 @@ class FlowerClient(fl.client.NumPyClient):
         self.data_path = data_path
         self.dataset_name=dataset_name
         self.strategy_name=strategy_name
+        self.proximal_loss = None
 
     def get_parameters(self):
         """Get relevant model parameters based on the strategy."""
@@ -165,20 +173,22 @@ class FlowerClient(fl.client.NumPyClient):
             updated_weights[k] = torch.tensor(v)
 
         updated_state_dict = OrderedDict(updated_weights)
+    
+        if "Prox" in self.strategy_name:
+            if not hasattr(self, 'current_proximal_mu'):
+                self.current_proximal_mu = SERVER_CONFIG["proximal_mu"]
+            if not hasattr(self, "proximal_loss"):
+                self.proximal_loss = ProximalDetectionLoss(
+                    model=self.net.model,
+                    global_params=updated_state_dict,
+                    proximal_mu=self.current_proximal_mu
+                )
+            else:
+                self.proximal_loss.update_global_params(updated_state_dict)
 
-        #     # Set global parameters for ProximalLoss if relevant
-        # if "Prox" in self.strategy_name:
-        #     if not hasattr(self, "proximal_loss"):
-        #         self.proximal_loss = ProximalDetectionLoss(
-        #             model=self.net.model,
-        #             global_params=updated_state_dict,
-        #             proximal_mu=YOLO_CONFIG.get("proximal_mu", 0.1)  # fallback if not in config
-        #         )
-        #     else:
-        #         self.proximal_loss.update_global_params(updated_state_dict)
-        #     self.net.model.loss = self.proximal_loss
+            self.net.model.loss = self.proximal_loss
 
-        #     self.net.model.load_state_dict(updated_state_dict, strict=False)
+        self.net.model.load_state_dict(updated_state_dict, strict=False)
 
     def fit(self, parameters, config):
         if config["server_round"] != 1:
@@ -193,7 +203,30 @@ class FlowerClient(fl.client.NumPyClient):
             self.net = YOLO(weights)
 
         self.set_parameters(parameters) # this needs to be modified so we only asign parts of the weights
-        train(self.net, self.data_path, self.cid, f"{self.strategy_name}_{self.dataset_name}_{self.cid}")
+        proximal_mu = config.get("proximal_mu", SERVER_CONFIG["proximal_mu"])
+        print(f"[Client {self.cid}] Using proximal_mu = {proximal_mu}")  # Add this line for debugging
+
+        if "Prox" in self.strategy_name:
+            if self.proximal_loss is None:
+                # Convert parameters to state_dict format
+                param_keys = list(self.net.model.state_dict().keys())
+                global_params_dict = dict(zip(param_keys, [torch.tensor(p) for p in parameters]))
+                self.proximal_loss = ProximalDetectionLoss(
+                        model=self.net.model,
+                        global_params=global_params_dict,  # ✅ Proper format
+                        proximal_mu=proximal_mu
+                    )
+            else:
+                param_keys = list(self.net.model.state_dict().keys())
+                global_params_dict = dict(zip(param_keys, [torch.tensor(p) for p in parameters]))
+                self.proximal_loss.update_global_params(dict(zip(self.net.model.state_dict().keys(), parameters)))
+                self.proximal_loss.proximal_mu = proximal_mu
+
+        self.net.model.loss = self.proximal_loss
+        print(f"[CLIENT {self.cid}] ProximalDetectionLoss updated with proximal_mu: {self.proximal_loss.proximal_mu}")
+
+
+        train(self.net, self.data_path, self.cid, f"{self.strategy_name}_{self.dataset_name}_{self.cid}", proximal_mu=proximal_mu)
         return self.get_parameters(), 10, {}
 
 
