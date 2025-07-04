@@ -7,7 +7,7 @@ import flwr as fl
 from ultralytics import YOLO
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 from FedYOLO.test.extract_final_save_from_client import extract_results_path
-from ultralytics.utils.loss import ProximalDetectionLoss
+from FedYOLO.train.prox_loss import ProximalDetectionLoss
 from FedYOLO.train.client_utils import parameters_to_state_dict
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -198,11 +198,11 @@ class FlowerClient(fl.client.NumPyClient):
             if not hasattr(self, "proximal_loss"):
                 self.proximal_loss = ProximalDetectionLoss(
                     model=self.net.model,
-                    global_params=updated_state_dict,
+                    global_params=final_state_dict,
                     proximal_mu=self.current_proximal_mu
                 )
             else:
-                self.proximal_loss.update_global_params(updated_state_dict)
+                self.proximal_loss.update_global_params(final_state_dict)
 
             self.net.model.loss = self.proximal_loss
 

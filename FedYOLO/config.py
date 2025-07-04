@@ -60,7 +60,7 @@ SERVER_CONFIG = {
     'proximal_mu': 1,  # Proximal term weight
     'strategy': 'FedProx',
 }
-print(f"PROXIMAL_MU={SERVER_CONFIG['proximal_mu']}")
+# print(f"PROXIMAL_MU={SERVER_CONFIG['proximal_mu']}")
 
 YOLO_CONFIG = {
     'batch_size': 8,

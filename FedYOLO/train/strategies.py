@@ -67,9 +67,9 @@ class BaseYOLOSaveStrategy:
 
     def __init__(self, *args, **kwargs):  
         """Initialize the strategy with proximal_mu and model path."""
-        proximal_mu = kwargs.pop('proximal_mu', SERVER_CONFIG.get('proximal_mu', 0.01))
+        # Get proximal_mu but keep it in kwargs for FedProx strategies
+        self.proximal_mu = kwargs.get('proximal_mu', SERVER_CONFIG.get('proximal_mu', 0.01))
         super().__init__(*args, **kwargs)
-        self.proximal_mu = proximal_mu
         self.model_path = f"{HOME}/FedYOLO/yolo_configs/yolo11n_{SPLITS_CONFIG['dataset_name']}.yaml"
 
     def initialize_parameters(
