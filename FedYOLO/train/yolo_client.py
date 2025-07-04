@@ -7,7 +7,7 @@ import flwr as fl
 from ultralytics import YOLO
 from FedYOLO.config import SERVER_CONFIG, YOLO_CONFIG, SPLITS_CONFIG, HOME
 from FedYOLO.test.extract_final_save_from_client import extract_results_path
-from ultralytics.utils.loss import ProximalDetectionLoss
+from FedYOLO.train.prox_loss import ProximalDetectionLoss
 from FedYOLO.train.client_utils import parameters_to_state_dict
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -115,21 +115,35 @@ class FlowerClient(fl.client.NumPyClient):
         send_neck = self.strategy_name in neck_strategies
         send_head = self.strategy_name in head_strategies
 
+        # Get all parameters in consistent order (same as set_parameters)
+        all_keys = sorted(current_state_dict.keys())
         relevant_parameters = []
-        for k, v in current_state_dict.items():
+        
+        for k in all_keys:
             if (send_backbone and k in backbone_weights) or \
                (send_neck and k in neck_weights) or \
                (send_head and k in head_weights):
-                relevant_parameters.append(v.cpu().numpy())
+                relevant_parameters.append(current_state_dict[k].cpu().numpy())
         
         return relevant_parameters
 
     def set_parameters(self, parameters):
-        # Get current client model state and split into sections
+        """Set relevant model parameters based on the strategy."""
         current_state_dict = self.net.model.state_dict()
-        backbone_weights, neck_weights, head_weights = get_section_parameters(current_state_dict)
         
-        # Define strategy groups
+        # For the first round, we expect the full model parameters to initialize all clients equally
+        if len(parameters) == len(current_state_dict):
+            print(f"Round 1: Initializing with full model ({len(parameters)} parameters)")
+            # Initialize with full model parameters
+            params_dict = zip(current_state_dict.keys(), parameters)
+            updated_weights = {k: torch.tensor(v) for k, v in params_dict}
+            self.net.model.load_state_dict(updated_weights, strict=True)
+            return
+        
+        # For subsequent rounds, handle partial parameter updates based on strategy
+        backbone_weights, neck_weights, head_weights = get_section_parameters(current_state_dict)
+
+        # Define strategy groups - Corrected lists
         backbone_strategies = [
             'FedAvg', 'FedBackboneAvg', 'FedBackboneHeadAvg', 'FedBackboneNeckAvg',
             'FedMedian', 'FedBackboneMedian', 'FedBackboneHeadMedian', 'FedBackboneNeckMedian',
@@ -145,34 +159,38 @@ class FlowerClient(fl.client.NumPyClient):
             'FedMedian', 'FedHeadMedian', 'FedNeckHeadMedian', 'FedBackboneHeadMedian',
             'FedProx', 'FedHeadProx', 'FedNeckHeadProx', 'FedBackboneHeadProx'
         ]
-        
-        # Determine which parts to update
+
+        # Determine which parts to update based on strategy
         update_backbone = self.strategy_name in backbone_strategies
         update_neck = self.strategy_name in neck_strategies
         update_head = self.strategy_name in head_strategies
-        
-        # Create the SAME key order that get_parameters() used
+
+        # Get relevant keys in consistent order (same as server and get_parameters)
         relevant_keys = []
-        for k in current_state_dict.keys():
+        for k in sorted(current_state_dict.keys()):
             if (update_backbone and k in backbone_weights) or \
-            (update_neck and k in neck_weights) or \
-            (update_head and k in head_weights):
+               (update_neck and k in neck_weights) or \
+               (update_head and k in head_weights):
                 relevant_keys.append(k)
-        
-        # Verify parameter count matches
+
+        print(f"Strategy: {self.strategy_name}")
+        print(f"Parameters received: {len(parameters)}")
+        print(f"Expected relevant parameters: {len(relevant_keys)}")
+
+        # Ensure the number of parameters received matches the number of relevant keys
         if len(parameters) != len(relevant_keys):
-            print(f"ERROR: Expected {len(relevant_keys)} parameters, got {len(parameters)}")
-            return
-        
-        # NOW zip with the correct keys
+             raise ValueError(f"Mismatch in parameter count: received {len(parameters)}, expected {len(relevant_keys)} for strategy {self.strategy_name}")
+
+        # Zip the relevant keys with the received parameters
         params_dict = zip(relevant_keys, parameters)
         
-        # Apply the parameters
-        updated_weights = {}
-        for k, v in params_dict:
-            updated_weights[k] = torch.tensor(v)
+        # Prepare updated weights dictionary using only the received parameters
+        updated_weights = {k: torch.tensor(v) for k, v in params_dict}
 
-        updated_state_dict = OrderedDict(updated_weights)
+        # Load the updated parameters into the model, keeping existing weights for other parts
+        # Create a full state dict for loading, merging updated weights with existing ones
+        final_state_dict = current_state_dict.copy()
+        final_state_dict.update(updated_weights)
     
         if "Prox" in self.strategy_name:
             if not hasattr(self, 'current_proximal_mu'):
@@ -180,15 +198,16 @@ class FlowerClient(fl.client.NumPyClient):
             if not hasattr(self, "proximal_loss"):
                 self.proximal_loss = ProximalDetectionLoss(
                     model=self.net.model,
-                    global_params=updated_state_dict,
+                    global_params=final_state_dict,
                     proximal_mu=self.current_proximal_mu
                 )
             else:
-                self.proximal_loss.update_global_params(updated_state_dict)
+                self.proximal_loss.update_global_params(final_state_dict)
 
             self.net.model.loss = self.proximal_loss
 
-        self.net.model.load_state_dict(updated_state_dict, strict=False)
+
+        self.net.model.load_state_dict(final_state_dict, strict=True) # Use strict=True if all expected keys are present
 
     def fit(self, parameters, config):
         if config["server_round"] != 1:
